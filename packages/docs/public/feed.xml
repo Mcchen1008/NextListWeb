@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>NextList</title>
+        <link>https://nextlist-web.pages.dev/</link>
+        <description>NextList 文档：部署指南、配置说明、存储挂载与插件开发</description>
+        <lastBuildDate>Fri, 11 Sep 2026 11:51:13 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <image>
+            <title>NextList</title>
+            <url>https://github.com/Mcchen1008.png</url>
+            <link>https://nextlist-web.pages.dev/</link>
+        </image>
+        <copyright>CC BY-NC-SA 4.0 2026 © Mcchen1008</copyright>
+        <atom:link href="https://nextlist-web.pages.dev/feed.xml" rel="self" type="application/rss+xml"/>
+    </channel>
+</rss>

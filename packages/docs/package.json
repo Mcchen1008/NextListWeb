@@ -1,0 +1,16 @@
+{
+  "name": "@nextlist/docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NextList 文档站（Valaxy + valaxy-theme-press）",
+  "scripts": {
+    "dev": "valaxy dev --port 5174 --host",
+    "build": "valaxy build --ssg",
+    "preview": "valaxy preview"
+  },
+  "dependencies": {
+    "valaxy": "1.0.0-rc.9",
+    "valaxy-theme-press": "1.0.0-rc.9"
+  }
+}

@@ -1,0 +1,35 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+packages/*/dist/
+.vercel/
+.output/
+
+# Cloudflare 本地开发
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Valaxy / Vite 缓存
+.vite/
+.valaxy/
+.cache/
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# 日志与系统文件
+*.log
+logs/
+.DS_Store
+Thumbs.db
+
+# 编辑器
+.idea/
+.vscode/*
+!.vscode/extensions.json

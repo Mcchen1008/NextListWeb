@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://nextlist-web.pages.dev/</id>
+    <title>NextList</title>
+    <updated>2026-09-11T11:51:13.381Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <author>
+        <name>Mcchen1008</name>
+        <email>i@valaxy.site</email>
+        <uri>https://github.com/Mcchen1008</uri>
+    </author>
+    <link rel="alternate" href="https://nextlist-web.pages.dev/"/>
+    <link rel="self" href="https://nextlist-web.pages.dev/atom.xml"/>
+    <subtitle>NextList 文档：部署指南、配置说明、存储挂载与插件开发</subtitle>
+    <logo>https://github.com/Mcchen1008.png</logo>
+    <icon>https://nextlist-web.pages.dev/favicon.svg</icon>
+    <rights>CC BY-NC-SA 4.0 2026 © Mcchen1008</rights>
+</feed>

@@ -1,0 +1,21 @@
+{
+  "name": "@nextlist/home",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NextList 官网主页（SolidJS + Vite 纯静态）",
+  "scripts": {
+    "dev": "vite --port 5173 --host",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "solid-js": "^1.9.15"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-solid": "^2.11.6"
+  }
+}

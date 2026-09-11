@@ -1,0 +1,13 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "NextList",
+    "home_page_url": "https://nextlist-web.pages.dev/",
+    "feed_url": "https://nextlist-web.pages.dev/feed.json",
+    "description": "NextList 文档：部署指南、配置说明、存储挂载与插件开发",
+    "icon": "https://github.com/Mcchen1008.png",
+    "author": {
+        "name": "Mcchen1008",
+        "url": "https://github.com/Mcchen1008"
+    },
+    "items": []
+}

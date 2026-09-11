@@ -1,0 +1,31 @@
+{
+  "name": "nextlist-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NextList 官网：主页 + 文档站 + 插件市场（部署于 Cloudflare Pages）",
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:home": "pnpm --filter @nextlist/home dev",
+    "dev:docs": "pnpm --filter @nextlist/docs dev",
+    "dev:plugins": "pnpm --filter @nextlist/plugins dev",
+    "dev:api": "node scripts/ensure-dist.mjs && wrangler pages dev dist",
+    "build": "pnpm -r build && node scripts/build.mjs",
+    "build:home": "pnpm --filter @nextlist/home build && node scripts/build.mjs",
+    "build:docs": "pnpm --filter @nextlist/docs build && node scripts/build.mjs",
+    "build:plugins": "pnpm --filter @nextlist/plugins build && node scripts/build.mjs",
+    "merge": "node scripts/build.mjs",
+    "preview": "node scripts/ensure-dist.mjs && wrangler pages dev dist",
+    "deploy": "npx wrangler pages deploy dist",
+    "typecheck": "pnpm -r typecheck && tsc -p functions/tsconfig.json",
+    "typecheck:api": "tsc -p functions/tsconfig.json"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260911.1",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.20.0"
+  }
+}
