@@ -22,7 +22,7 @@ REFRESH_COOLDOWN_SECONDS = "300"
 # ⚠️ 部署前请把 id 替换为你的真实 namespace id（占位符会导致远程部署读取失败）
 [[kv_namespaces]]
 binding = "PLUGINS_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "f9f56be7f1b14131ae89eb9e4188e4f8"
 
 # ---- 敏感变量请使用 Secrets，不要写进本文件 ----
 # 在 Dashboard → Settings → Environment variables 添加，或使用：
