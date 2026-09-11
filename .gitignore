@@ -33,3 +33,9 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Valaxy 构建时生成的文件（feed / fuse 搜索索引）
+packages/docs/public/feed.xml
+packages/docs/public/feed.json
+packages/docs/public/atom.xml
+packages/docs/public/valaxy-fuse-list.json
