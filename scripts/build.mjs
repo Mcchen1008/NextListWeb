@@ -51,6 +51,16 @@ for (const t of targets) {
 writeFileSync(join(dist, '_redirects'), REDIRECTS)
 console.log(`✓ [merge] 写入 dist/_redirects（插件市场 SPA 路由回退）`)
 
+// 根目录 ads.txt（广告平台验证文件）→ dist/ads.txt，
+// 部署后可通过 https://<域名>/ads.txt 直接访问。
+const adsTxt = join(root, 'ads.txt')
+if (existsSync(adsTxt)) {
+  cpSync(adsTxt, join(dist, 'ads.txt'))
+  console.log('✓ [merge] ads.txt → dist/ads.txt（站点根路径）')
+} else {
+  console.warn('⚠ [merge] 跳过 ads.txt：仓库根目录不存在该文件。')
+}
+
 if (merged === 0) {
   console.warn('⚠ [merge] 没有任何子包产物被合并，dist/ 仅包含 _redirects。')
 } else {
