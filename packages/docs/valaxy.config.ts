@@ -3,7 +3,7 @@ import type { ThemeConfig } from 'valaxy-theme-press'
 
 /**
  * NextList 文档站配置
- * 主题：valaxy-theme-press（VitePress 风格文档主题，体验对齐 OpenList 文档站）
+ * 主题：valaxy-theme-press（VitePress 风格文档主题，体验对齐 doc.oplist.org.cn）
  * 主题配置结构见 node_modules/valaxy-theme-press/types/index.d.ts
  */
 export default defineValaxyConfig<ThemeConfig>({
@@ -16,8 +16,8 @@ export default defineValaxyConfig<ThemeConfig>({
       avatar: 'https://github.com/Mcchen1008.png',
     },
     lang: 'zh-CN',
-    description: 'NextList 文档：部署指南、配置说明、存储挂载与插件开发',
-    // 部署后的正式域名（用于 SEO / RSS）
+    description: 'NextList 官方文档：快速开始、用户指南、部署（Cloudflare Workers）、存储挂载、配置、API 与 MCP 接入、插件开发',
+    // 部署后的正式域名（用于 SEO / RSS / sitemap）
     url: 'https://nextlist-web.pages.dev',
     favicon: '/logo.svg',
   },
@@ -27,35 +27,76 @@ export default defineValaxyConfig<ThemeConfig>({
   themeConfig: {
     logo: '/logo.svg',
 
-    // 顶部导航
+    // 顶部导航（对齐 doc.oplist.org.cn：文档 / 用户指南 / 配置 / FAQ / 生态）
     nav: [
-      { text: '指南', link: '/guide/quick-start' },
-      { text: '存储挂载', link: '/guide/storage' },
-      { text: '插件开发', link: '/plugins/development' },
+      { text: '文档', link: '/' },
+      { text: '用户指南', link: '/guide/quick-start' },
+      { text: '配置', link: '/config/site' },
+      { text: '存储', link: '/storage/' },
+      { text: '进阶', link: '/advanced/api' },
       { text: 'FAQ', link: '/faq' },
-      { text: '官网', link: '/' },
       { text: '插件市场', link: '/plugins/' },
       { text: 'GitHub', link: 'https://github.com/Mcchen1008/NextList' },
     ],
 
-    // 侧边栏（按目录分组）
+    // 侧边栏（按目录分组，文档首页 = 快速开始）
     sidebar: [
       {
-        text: '指南',
+        text: '用户指南',
         items: [
           { text: '快速开始', link: '/guide/quick-start' },
-          { text: '部署', link: '/guide/deploy' },
-          { text: '配置说明', link: '/guide/config' },
-          { text: '存储挂载', link: '/guide/storage' },
+          { text: '登录与账户安全', link: '/guide/account' },
+          { text: '文件浏览与预览', link: '/guide/browse' },
+          { text: '文件搜索', link: '/guide/search' },
+          { text: '分享', link: '/guide/share' },
+          { text: 'WebDAV', link: '/guide/webdav' },
         ],
       },
       {
-        text: '插件',
-        items: [{ text: '插件开发指南', link: '/plugins/development' }],
+        text: '部署',
+        items: [
+          { text: 'Cloudflare Workers 部署', link: '/deploy/workers' },
+          { text: '环境变量与绑定', link: '/deploy/env' },
+          { text: 'EdgeOne Pages 部署', link: '/deploy/edgeone' },
+        ],
+      },
+      {
+        text: '配置',
+        items: [
+          { text: '站点设置', link: '/config/site' },
+          { text: '样式设置', link: '/config/style' },
+          { text: '预览设置', link: '/config/preview' },
+          { text: '全局设置', link: '/config/global' },
+          { text: '高级设置', link: '/config/advanced' },
+        ],
+      },
+      {
+        text: '存储挂载',
+        items: [
+          { text: '添加存储', link: '/storage/' },
+          { text: '驱动一览', link: '/storage/drivers' },
+        ],
+      },
+      {
+        text: '进阶',
+        items: [
+          { text: 'REST API', link: '/advanced/api' },
+          { text: 'MCP 接入（AI 助手）', link: '/advanced/mcp' },
+          { text: 'OpenList 兼容性', link: '/advanced/compat' },
+          { text: '插件开发指南', link: '/plugins/development' },
+        ],
       },
       {
         text: '帮助',
         items: [{ text: '常见问题 FAQ', link: '/faq' }],
+      },
+      {
+        text: '关于',
+        items: [
+          { text: '隐私政策', link: '/legal/privacy' },
+          { text: '服务条款', link: '/legal/terms' },
+          { text: '免责声明', link: '/legal/disclaimer' },
+        ],
       },
     ],
 
@@ -65,7 +106,7 @@ export default defineValaxyConfig<ThemeConfig>({
     },
 
     footer: {
-      message: '基于 AGPL-3.0 许可发布',
+      message: 'AGPL-3.0 Licensed',
       copyright: '© 2026 NextList Contributors',
     },
 

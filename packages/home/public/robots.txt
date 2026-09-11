@@ -1,0 +1,9 @@
+# NextList 官网 robots.txt
+# 注意：若你的 NextList 实例需要禁止收录，请在实例的「站点设置 → robots_txt」中配置，而非本文件。
+
+User-agent: *
+Allow: /
+Disallow: /plugins/callback
+Disallow: /api/
+
+Sitemap: https://nextlist-web.pages.dev/sitemap.xml

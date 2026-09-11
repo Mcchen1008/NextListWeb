@@ -28,6 +28,14 @@ const LINK_GROUPS = [
       { text: 'OpenList 文档', href: 'https://doc.oplist.org/', external: true },
     ],
   },
+  {
+    title: '法律',
+    links: [
+      { text: '隐私政策', href: '/privacy.html', external: false },
+      { text: '服务条款', href: '/terms.html', external: false },
+      { text: '免责声明', href: '/disclaimer.html', external: false },
+    ],
+  },
 ]
 
 const Footer: Component = () => {

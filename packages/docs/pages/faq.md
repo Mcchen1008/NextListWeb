@@ -13,11 +13,11 @@ Workers 是无文件系统环境。Local 驱动仅在 Node 容器模式可用（
 
 ## Q：数据存在哪里？
 
-Node 容器模式持久化到 `public_data/db.json`；Cloudflare Workers 模式持久化到绑定的 `NEXTLIST_KV` namespace；EdgeOne 模式持久化到 Blob 存储。详见 [配置说明](/guide/config)。
+Node 容器模式持久化到 `public_data/db.json`；Cloudflare Workers 模式持久化到绑定的 `NEXTLIST_KV` namespace；EdgeOne 模式持久化到 Blob 存储。详见 [环境变量与绑定](/deploy/env)。
 
 ## Q：支持 WebDAV 吗？
 
-双向支持：既可以把远程 WebDAV 服务器（Nextcloud、ownCloud、群晖等）作为存储驱动挂载进来，也对外提供完整的 WebDAV 服务端（`/dav` 端点，RFC 4918 Class 1/2），可被 Windows 资源管理器、macOS Finder、rclone 等客户端挂载。详见 [存储挂载](/guide/storage)。
+双向支持：既可以把远程 WebDAV 服务器（Nextcloud、ownCloud、群晖等）作为存储驱动挂载进来，也对外提供完整的 WebDAV 服务端（`/dav` 端点，RFC 4918 Class 1/2），可被 Windows 资源管理器、macOS Finder、rclone 等客户端挂载。详见 [添加存储](/storage/)。
 
 ## Q：`npm run start` 为什么不能直接启动服务？
 

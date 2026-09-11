@@ -21,7 +21,7 @@ const FEATURES: Feature[] = [
   {
     icon: HardDriveIcon,
     title: '多存储挂载',
-    desc: '13 种存储驱动统一挂载：夸克、阿里云盘、百度网盘、123 云盘、115、天翼、迅雷、蓝奏、OneDrive、Google Drive、WebDAV、GitHub 与本地磁盘，支持跨存储复制。',
+    desc: '60+ 存储驱动统一挂载：夸克、阿里云盘、百度网盘、123 云盘、115、天翼、迅雷、UC、移动云、PikPak、OneDrive、Google Drive、Dropbox、S3、WebDAV 等，支持跨存储复制。',
   },
   {
     icon: CloudIcon,
@@ -30,8 +30,8 @@ const FEATURES: Feature[] = [
   },
   {
     icon: CodeIcon,
-    title: '全栈 TypeScript',
-    desc: '前端 SolidJS 与后端 Hono 同语言，类型前后端共享，没有 Go 编译链。构建更快、产物更小，二次开发上手零成本。',
+    title: 'MCP 接入 AI',
+    desc: '内置 Model Context Protocol 服务端，Claude、Cursor 等 AI 助手通过标准协议直接浏览目录、搜索文件、查看站点状态，把网盘接入 AI 工作流。',
   },
   {
     icon: DatabaseIcon,

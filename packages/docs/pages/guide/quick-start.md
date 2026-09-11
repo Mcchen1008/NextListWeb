@@ -1,34 +1,30 @@
 ---
 title: 快速开始
-description: NextList 的环境要求、安装与本地运行
+description: 五分钟上手 NextList —— 在线部署或本地运行、首次登录、挂载第一块存储
 ---
 
-本文带你从零开始，在本地把 NextList 跑起来，并完成首次登录与存储挂载。
+欢迎来到 NextList！本文是整个文档的入口，带你用最短路径把站点跑起来：选择一种部署方式、完成首次登录、挂载第一块存储，然后把后续深入阅读的文档链接交给你。
 
-## 环境要求
+## 选择你的启动方式
 
-| 依赖 | 版本要求 | 说明 |
-| --- | --- | --- |
-| Node.js | ≥ 20.19（推荐 22 LTS） | Vite 构建工具链要求 |
-| 包管理器 | pnpm 9+（推荐）或 npm | `npm i -g pnpm` 即可安装 |
+NextList 支持两条上手路径，按你的需求二选一即可。
 
-## 安装依赖
+**路径一：云端部署（推荐）**。如果你希望拥有一个可以直接访问的线上站点，推荐部署到 Cloudflare Workers：免费计划每天 100,000 次请求、全球边缘节点加速、无需维护服务器。完整流程见 [Cloudflare Workers 部署](/deploy/workers)，概括起来只有三步——创建一个 KV 命名空间、`pnpm build` 构建产物、`pnpm deploy:worker` 发布。腾讯云用户也可以选择 [EdgeOne Pages 部署](/deploy/edgeone)。
+
+**路径二：本地开发运行**。如果你想先在本地体验或参与开发，确认已安装 Node.js ≥ 20.19 与 pnpm 9+，然后：
 
 ```bash
 git clone https://github.com/Mcchen1008/NextList.git
 cd NextList
 pnpm install
-```
-
-## 启动开发服务器
-
-```bash
 pnpm dev
 ```
 
-该命令会同时启动 Vite 前端与 Hono 后端一体化开发服务器，随后访问 <http://localhost:3000> 即可。
+启动后访问 <http://localhost:3000> 即可。Vite 会同时托管前端页面与 Hono 后端，配置数据写入本地 `public_data/db.json`。
 
-## 默认管理账号
+## 首次登录
+
+无论哪种方式启动，默认管理员账号相同：
 
 | 项 | 值 |
 | --- | --- |
@@ -36,21 +32,28 @@ pnpm dev
 | 密码 | `admin` |
 
 > [!WARNING]
-> 首次部署后请务必在「管理面板 → 用户管理」中修改默认密码，避免站点被陌生人接管。
+> 公网部署后请第一时间在「管理面板 → 用户管理」修改默认密码，并为站点启用两步验证，参见 [登录与账户安全](/guide/account)。
 
-## 添加你的第一块存储
+登录入口在页面右上角。管理员登录后会自动获得「管理面板」入口，普通用户仅能看到被授权的文件视图。
 
-1. 使用默认账号登录，进入**管理面板 → 存储管理**；
-2. 点击「新增存储」，选择驱动（如夸克网盘、WebDAV、OneDrive 等）；
-3. 按表单填写对应的认证信息（Cookie / Token / OAuth 授权等），保存并启用；
-4. 回到文件页，即可看到新挂载的存储出现在目录树中。
+## 挂载第一块存储
 
-驱动的具体接入方式与参数说明见 [存储挂载](/guide/storage)。
+NextList 自身不存储文件，一切内容来自你挂载的存储。挂载流程对任何驱动都一致：
 
-## 下一步
+1. 进入**管理面板 → 存储管理**，点击「添加存储」；
+2. 选择驱动——从 WebDAV、S3 这类通用协议，到夸克、阿里云盘、百度网盘、123 云盘、115、OneDrive、Google Drive 等 60+ 网盘；
+3. 按表单填写认证信息（Cookie、refresh_token、WebDAV 账号密码等），设置挂载路径（如 `/夸克`）；
+4. 保存并启用，回到文件页即可在目录树中看到新存储。
 
-- 部署到线上：见 [部署](/guide/deploy)，推荐 Cloudflare Workers 免费边缘部署
-- 调整站点行为：见 [配置说明](/guide/config)
-- 开发自己的插件：见 [插件开发指南](/plugins/development)
+每种驱动需要哪些参数、去哪里获取凭证，见 [添加存储](/storage/)；全部驱动的清单见 [驱动一览](/storage/drivers)。
+
+## 接下来去哪里
+
+按目的选择阅读路线：
+
+- **日常使用**：[文件浏览与预览](/guide/browse)、[分享](/guide/share)、[WebDAV 挂载到本机](/guide/webdav)
+- **站点管理**：[站点 / 样式 / 预览 / 全局设置](/config/site)、[高级设置](/config/advanced)
+- **接入 AI**：[MCP 接入指南](/advanced/mcp)，让 Claude、Cursor 直接读取你的网盘
+- **二次开发**：[REST API](/advanced/api) 与 [插件开发](/plugins/development)
 
 <GiscusComment />
