@@ -10,6 +10,7 @@
     "preview": "valaxy preview"
   },
   "dependencies": {
+    "@iconify-json/ri": "^1.2.10",
     "valaxy": "1.0.0-rc.9",
     "valaxy-theme-press": "1.0.0-rc.9"
   }

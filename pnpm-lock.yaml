@@ -20,6 +20,9 @@ importers:
 
   packages/docs:
     dependencies:
+      '@iconify-json/ri':
+        specifier: ^1.2.10
+        version: 1.2.10
       valaxy:
         specifier: 1.0.0-rc.9
         version: 1.0.0-rc.9(@babel/parser@7.29.8)(@types/markdown-it@14.2.0)(@types/node@22.20.2)(@vue/compiler-dom@3.5.42)(axios@1.20.0)(esbuild@0.28.1)(eslint@10.10.0(jiti@2.7.0))(focus-trap@8.2.2)(rolldown@1.2.8)(rollup@4.63.1)(typescript@5.9.3)(vue-router@5.3.1(@vue/compiler-sfc@3.5.42)(esbuild@0.28.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.42(typescript@5.9.3)))(rolldown@1.2.8)(rollup@4.63.1)(vite@8.3.0(@types/node@22.20.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.104.0)(yaml@2.9.0))(vue@3.5.42(typescript@5.9.3)))(vue@3.5.42(typescript@5.9.3))(yaml@2.9.0)
@@ -29,6 +32,9 @@ importers:
 
   packages/home:
     dependencies:
+      lucide-solid:
+        specifier: ^1.47.0
+        version: 1.47.0(solid-js@1.9.15)
       solid-js:
         specifier: ^1.9.15
         version: 1.9.15
@@ -51,6 +57,9 @@ importers:
       dompurify:
         specifier: ^3.2.5
         version: 3.4.15
+      lucide-solid:
+        specifier: ^1.47.0
+        version: 1.47.0(solid-js@1.9.15)
       marked:
         specifier: ^15.0.12
         version: 15.0.12
@@ -3157,6 +3166,11 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-solid@1.47.0:
+    resolution: {integrity: sha512-upKY9VSMWsk91pjSCJ/2VtstGJha6qXflfJSN/ahtmWNfy+vtl0ZTMj3KNcnGZCgHVQO5SCG2OecFV7ZlvWVyQ==}
+    peerDependencies:
+      solid-js: ^1.4.7
 
   magic-regexp@0.10.0:
     resolution: {integrity: sha512-Uly1Bu4lO1hwHUW0CQeSWuRtzCMNO00CmXtS8N6fyvB3B979GOEEeAkiTUDsmbYLAbvpUS/Kt5c4ibosAzVyVg==}
@@ -7361,6 +7375,10 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-solid@1.47.0(solid-js@1.9.15):
+    dependencies:
+      solid-js: 1.9.15
 
   magic-regexp@0.10.0:
     dependencies:

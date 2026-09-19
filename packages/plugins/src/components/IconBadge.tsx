@@ -8,7 +8,7 @@ import type { PluginMeta } from '../types'
  *  3. 都没有 / 加载失败时使用首字母色块（按 id 哈希取色）
  */
 
-const HUES = [199, 172, 260, 24, 340, 140, 45, 300]
+const HUES = [199, 172, 205, 160, 24, 340, 45, 8]
 
 export function IconBadge(props: { plugin: PluginMeta; size: number; rounded?: boolean }) {
   const [failed, setFailed] = createSignal(false)

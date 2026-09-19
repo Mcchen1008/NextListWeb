@@ -5,7 +5,7 @@
 :root {
   --brand-teal: #70c6be;
   --brand-blue: #1ba0d8;
-  --brand-gradient: linear-gradient(135deg, #1ba0d8 0%, #70c6be 100%);
+  --brand-blue-dark: #1479a8;
 
   --bg: #f7fafb;
   --bg-soft: #eef4f6;
@@ -143,9 +143,14 @@ code {
 }
 
 .btn-primary {
-  background: var(--brand-gradient);
+  background: var(--brand-blue);
   color: #fff;
-  box-shadow: 0 6px 18px rgb(27 160 216 / 0.32);
+  box-shadow: 0 2px 10px rgb(27 160 216 / 0.22);
+}
+
+.btn-primary:hover {
+  background: var(--brand-blue-dark);
+  box-shadow: 0 4px 14px rgb(27 160 216 / 0.3);
 }
 
 .btn-secondary {
@@ -367,7 +372,7 @@ select {
 }
 
 .chip.active {
-  background: var(--brand-gradient);
+  background: var(--brand-blue);
   border-color: transparent;
   color: #fff;
   font-weight: 600;
@@ -807,10 +812,7 @@ select {
 .notfound-code {
   font-size: 56px;
   font-weight: 800;
-  background: var(--brand-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--brand-blue);
 }
 
 .callback-block {

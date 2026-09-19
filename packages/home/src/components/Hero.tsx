@@ -1,4 +1,5 @@
 import type { Component } from 'solid-js'
+import { Folders } from 'lucide-solid'
 import { BookIcon, BoxIcon, CloudIcon, GitHubIcon, ShieldIcon, StarIcon, ZapIcon } from './Icons'
 
 const REPO_URL = 'https://github.com/Mcchen1008/NextList'
@@ -6,7 +7,6 @@ const REPO_URL = 'https://github.com/Mcchen1008/NextList'
 const Hero: Component = () => {
   return (
     <section class="hero">
-      <div class="hero-glow" aria-hidden="true" />
       <div class="container hero-inner">
         <p class="hero-badge">开源免费 · AGPL-3.0</p>
 
@@ -15,7 +15,8 @@ const Hero: Component = () => {
         </div>
 
         <h1 class="hero-title">
-          NextList <span class="hero-emoji" aria-hidden="true">🗂️</span>
+          NextList
+          <Folders size={36} class="hero-title-icon" aria-hidden="true" />
         </h1>
         <p class="hero-subtitle">支持多种存储的文件列表程序</p>
 

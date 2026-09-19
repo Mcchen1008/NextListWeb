@@ -13,6 +13,7 @@
   "dependencies": {
     "@solidjs/router": "^0.15.3",
     "dompurify": "^3.2.5",
+    "lucide-solid": "^1.47.0",
     "marked": "^15.0.12",
     "solid-js": "^1.9.15"
   },

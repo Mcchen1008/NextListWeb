@@ -24,6 +24,23 @@ export default defineValaxyConfig<ThemeConfig>({
 
   theme: 'press',
 
+  /**
+   * 运行时拼接的 unocss 图标类名（frontmatter features.icon、导航
+   * socialLinks.icon）无法被静态扫描提取，须加入 safelist 才会生成
+   * 对应的 iconify 样式。
+   */
+  unocss: {
+    safelist: [
+      'i-ri-github-fill',
+      'i-ri-database-2-line',
+      'i-ri-flashlight-line',
+      'i-ri-robot-2-line',
+      'i-ri-eye-line',
+      'i-ri-link',
+      'i-ri-code-s-slash-line',
+    ],
+  },
+
   themeConfig: {
     logo: '/logo.svg',
 

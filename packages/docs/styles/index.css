@@ -1,0 +1,90 @@
+/* ============================================================
+   NextList 文档站自定义样式
+   覆盖 valaxy-theme-press 默认的紫蓝渐变（首页标题 / 导航品牌 /
+   hero 按钮 / logo 光斑）与 indigo 品牌色，统一为主站品牌蓝，
+   整体观感更接近传统文档站。
+   valaxy 会自动加载用户根目录的 styles/index.css，且晚于主题样式。
+   ============================================================ */
+
+/* ---------- 品牌色：indigo → NextList 品牌蓝（浅色模式） ---------- */
+:root {
+  --va-c-brand-1: #1273a5;
+  --va-c-brand-2: #1b8fc4;
+  --va-c-brand-3: rgb(27 160 216 / 0.35);
+  --va-c-brand-soft: rgb(27 160 216 / 0.14);
+  --va-c-brand: var(--va-c-brand-1);
+
+  --vp-c-brand-1: #1273a5;
+  --vp-c-brand-2: #1b8fc4;
+  --vp-c-brand-3: rgb(27 160 216 / 0.35);
+  --vp-c-brand-soft: rgb(27 160 216 / 0.14);
+  --vp-c-brand: var(--vp-c-brand-1);
+
+  --va-c-primary: #1273a5;
+  --va-c-primary-light: #1b8fc4;
+  --va-c-primary-lighter: #4cb4e0;
+  --va-c-primary-dark: #0e618c;
+  --va-c-primary-rgb: 27 160 216;
+  --va-c-link: var(--va-c-primary-dark);
+}
+
+/* ---------- 品牌色：深色模式 ---------- */
+html.dark {
+  --va-c-brand-1: #4cb4e0;
+  --va-c-brand-2: #2ea3d6;
+  --va-c-brand-3: rgb(27 160 216 / 0.4);
+  --va-c-brand-soft: rgb(27 160 216 / 0.16);
+  --va-c-brand: var(--va-c-brand-1);
+
+  --vp-c-brand-1: #4cb4e0;
+  --vp-c-brand-2: #2ea3d6;
+  --vp-c-brand-3: rgb(27 160 216 / 0.4);
+  --vp-c-brand-soft: rgb(27 160 216 / 0.16);
+  --vp-c-brand: var(--vp-c-brand-1);
+
+  --va-c-primary: #4cb4e0;
+  --va-c-primary-light: #2ea3d6;
+  --va-c-primary-lighter: #1b8fc4;
+  --va-c-primary-dark: #74c6e9;
+  --va-c-link: var(--va-c-primary-dark);
+}
+
+/* ---------- 文档首页大标题：紫蓝渐变字 → 实色标题 ---------- */
+.press-home h1.gradient-text {
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--pr-c-text-1);
+}
+
+/* ---------- 顶部导航品牌名：同上 ---------- */
+.pr-navbar .pr-navbar-brand.gradient-text {
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--pr-c-text-1);
+}
+
+/* ---------- 首页按钮：紫蓝渐变 → 品牌蓝实色 ---------- */
+.press-home .sese-btn {
+  background-image: none;
+  background-color: #1b8fc4;
+  color: #fff;
+}
+
+.press-home .sese-btn:hover {
+  background-color: #1479a8;
+}
+
+/* 次要按钮（alt 主题）保持深灰 */
+.press-home .sese-btn.from-gray-700 {
+  background-color: #3d4754;
+}
+
+.press-home .sese-btn.from-gray-700:hover {
+  background-color: #2b333e;
+}
+
+/* ---------- logo 背后的光斑：紫蓝双色渐变 → 品牌蓝柔光 ---------- */
+.press-home .press-hero-image .press-hero-image-bg {
+  background-image: none;
+  background-color: #1ba0d8;
+}
