@@ -13,10 +13,10 @@ hero:
   actions:
     - theme: brand
       text: Quick Start
-      link: /en/guide/quick-start
+      link: /guide/quick-start
     - theme: alt
       text: Deploy Guide
-      link: /en/deploy/workers
+      link: /deploy/workers
     - theme: alt
       text: GitHub
       link: https://github.com/Mcchen1008/NextList

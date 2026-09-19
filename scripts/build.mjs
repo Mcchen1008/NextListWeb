@@ -47,8 +47,10 @@ for (const t of targets) {
 writeFileSync(join(dist, '_redirects'), REDIRECTS)
 console.log(`✓ [merge] 写入 dist/_redirects（SPA 回退由 functions/plugins/ 承担，此文件仅留注释）`)
 
-// 根级 404 兜底页：Cloudflare Pages 对所有未匹配路径返回此页，
+// 根级 404 兕底页：Cloudflare Pages 对所有未匹配路径返回此页，
 // 避免 /plugins 等路由异常时访客看到白板 404。风格与文档站一致。
+// 双语：head 内联脚本在首帧前根据路径前缀（/en）设置 html[lang]，
+// CSS 据此切换中英文块；禁用 JS 时回退中文默认块。
 const NOT_FOUND_HTML = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -57,6 +59,14 @@ const NOT_FOUND_HTML = `<!DOCTYPE html>
 <meta name="robots" content="noindex">
 <title>404 页面不存在 - NextList</title>
 <link rel="icon" href="/logo.svg" type="image/svg+xml">
+<script>
+(function () {
+  if (/^\\/en(\\/|$)/.test(location.pathname)) {
+    document.documentElement.lang = 'en';
+    document.title = '404 Page Not Found - NextList';
+  }
+})();
+</script>
 <style>
   :root { color-scheme: light dark; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -87,18 +97,33 @@ const NOT_FOUND_HTML = `<!DOCTYPE html>
   .btn:hover { background: #2b333e; }
   .btn.brand { background: #1b8fc4; }
   .btn.brand:hover { background: #1479a8; }
+  /* 双语切换：默认中文，html[lang=en] 时显示英文块 */
+  .en { display: none; }
+  html[lang="en"] .zh { display: none; }
+  html[lang="en"] .en { display: block; }
 </style>
 </head>
 <body>
 <div class="card">
   <img class="logo" src="/logo.svg" alt="NextList">
   <div class="code">404</div>
-  <h1>页面不存在或已被移动</h1>
-  <p>请检查地址是否正确，或从下面的入口继续访问。</p>
-  <div class="actions">
-    <a class="btn brand" href="/">返回首页</a>
-    <a class="btn" href="/plugins/">插件市场</a>
-    <a class="btn" href="https://github.com/Mcchen1008/NextList" target="_blank" rel="noopener noreferrer">GitHub</a>
+  <div class="zh">
+    <h1>页面不存在或已被移动</h1>
+    <p>请检查地址是否正确，或从下面的入口继续访问。</p>
+    <div class="actions">
+      <a class="btn brand" href="/">返回首页</a>
+      <a class="btn" href="/plugins/">插件市场</a>
+      <a class="btn" href="https://github.com/Mcchen1008/NextList" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+  <div class="en">
+    <h1>Page not found or has moved</h1>
+    <p>Check the address for typos, or continue from one of the links below.</p>
+    <div class="actions">
+      <a class="btn brand" href="/en/">Back to Home</a>
+      <a class="btn" href="/en/faq">FAQ</a>
+      <a class="btn" href="https://github.com/Mcchen1008/NextList" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
   </div>
 </div>
 </body>
