@@ -21,6 +21,8 @@ description: NextList 支持的全部存储驱动 —— 名称、类别、凭�
 | `WoPan` 联通云盘 | 账号密码（Token 自动续期） | 全读写 | wire 协议签名 |
 | `GuangYaPan` 光速盘 | Token 或手机号短信 | 全读写 | 任务轮询上传 |
 | `MoPan` 沃盘 | 设备信息 + Token | 全读写 | |
+| `Lanzou` 蓝奏云 | Cookie | 全读写 | 支持 lanzou / lanzoui / lanzous 等域名变体 |
+| `WeiYun` 腾讯微云 | Cookie | 全读写 | Cookie 自动续期 |
 | `Doubao` 豆包网盘 | Cookie | 全读写 | 直链三分支自适应 |
 | `WPS` WPS 云文档 | Cookie | 全读写 | Personal / Business 双端 |
 | `NeteaseMusic` 网易云音乐云盘 | Cookie | 全读写 | 歌曲列表、歌词虚拟文件、纯 Web Crypto 加密 |
@@ -84,6 +86,7 @@ description: NextList 支持的全部存储驱动 —— 名称、类别、凭�
 | `Emby` | api_key 或 账号密码 | 只读 | 媒体库呈现为目录树 |
 | `GooglePhoto` | OAuth 凭证 | 只读 | 相册与全部照片虚拟目录 |
 | `AliDoc` 阿里云文档 | 钉钉 Cookie | 只读 | 预签名 OSS 直链 |
+| `ChaoXingGroupDrive` 超星小组云 | 账号密码（Session 自动续期） | 全读写 | 学习通群组文件 |
 | `Misskey` | API Token | 全读写 | 网盘文件读写 |
 | `Teambition` | Cookie | 读写* | 网盘 + 云作品双列表；上传暂不支持 |
 | `MediaTrack` 分秒帧 | Bearer access_token | 读写* | 上传需临时凭证管线（暂不支持）；阿里转码预览可用 |

@@ -44,6 +44,66 @@ export default defineValaxyConfig<ThemeConfig>({
   themeConfig: {
     logo: '/logo.svg',
 
+    /**
+     * 多语言：root = 中文（完整文档），/en/ = 英文（核心落地页）。
+     * i18nRouting 保持 false：切换语言时跳到目标语言首页，
+     * 避免英文版未覆盖的页面落到 404。
+     */
+    i18nRouting: false,
+    locales: {
+      root: {
+        label: '简体中文',
+        lang: 'zh-CN',
+      },
+      en: {
+        label: 'English',
+        lang: 'en',
+        themeConfig: {
+          nav: [
+            { text: 'Home', link: '/en/' },
+            { text: 'Guide', link: '/en/guide/quick-start' },
+            { text: 'Deploy', link: '/en/deploy/workers' },
+            { text: 'FAQ', link: '/en/faq' },
+            { text: 'About', link: '/en/about' },
+            { text: 'GitHub', link: 'https://github.com/Mcchen1008/NextList' },
+          ],
+          sidebar: [
+            {
+              text: 'Guide',
+              items: [{ text: 'Quick Start', link: '/en/guide/quick-start' }],
+            },
+            {
+              text: 'Deploy',
+              items: [
+                { text: 'Cloudflare Workers', link: '/en/deploy/workers' },
+                { text: 'Tencent EdgeOne', link: '/en/deploy/edgeone' },
+                { text: 'Alibaba Cloud ESA', link: '/en/deploy/esa' },
+              ],
+            },
+            {
+              text: 'Help',
+              items: [
+                { text: 'FAQ', link: '/en/faq' },
+                { text: 'About This Project', link: '/en/about' },
+              ],
+            },
+            {
+              text: 'Legal',
+              items: [
+                { text: 'Privacy Policy', link: '/en/legal/privacy' },
+                { text: 'Terms of Service', link: '/en/legal/terms' },
+                { text: 'Disclaimer', link: '/en/legal/disclaimer' },
+              ],
+            },
+          ],
+          footer: {
+            message: 'AGPL-3.0 Licensed · Contact: Chen10081008@outlook.com',
+            copyright: '© 2026 NextList Contributors',
+          },
+        },
+      },
+    },
+
     // 顶部导航（对齐 doc.oplist.org.cn：文档 / 用户指南 / 配置 / FAQ / 生态）
     nav: [
       { text: '文档', link: '/' },

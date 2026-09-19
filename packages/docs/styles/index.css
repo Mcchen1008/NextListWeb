@@ -112,11 +112,3 @@ html.dark {
 .press-lastUpdated {
   display: none !important;
 }
-
-/* ---------- 隐藏导航栏语言切换按钮 ----------
-   本站内容仅中文。主题在未配置 themeConfig.locales 时会渲染
-   legacy 切换按钮，点击只能切换 UI 界面字符串、文档内容不变，
-   实际无效且造成专业度减分；待提供英文版后可移除此规则。 */
-.press-locale-trigger {
-  display: none !important;
-}
