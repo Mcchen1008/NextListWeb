@@ -103,3 +103,20 @@ html.dark {
   background-image: none;
   background-color: #1ba0d8;
 }
+
+/* ---------- 隐藏页脚「最后更新时间」 ----------
+   valaxy rc.9 未实现 page.lastUpdated 数据填充，主题页脚组件
+   内部 new Date(lastUpdated || 0) 恒等于 1970/1/1（new Date(0)），
+   显示错误时间属于观感硬伤（Google Ads 落地页质量减分项），
+   在官方数据源可用前先隐藏。 */
+.press-lastUpdated {
+  display: none !important;
+}
+
+/* ---------- 隐藏导航栏语言切换按钮 ----------
+   本站内容仅中文。主题在未配置 themeConfig.locales 时会渲染
+   legacy 切换按钮，点击只能切换 UI 界面字符串、文档内容不变，
+   实际无效且造成专业度减分；待提供英文版后可移除此规则。 */
+.press-locale-trigger {
+  display: none !important;
+}

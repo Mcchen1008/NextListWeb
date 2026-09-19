@@ -31,4 +31,8 @@ NextList 项目代码以 **AGPL-3.0** 许可证发布，遵守该许可证即可
 
 我们可能随时更新本条款，更新后在本页公布并注明生效日期；继续使用本站视为接受修订后的条款。本条款受中华人民共和国法律管辖（不含港澳台地区法律冲突规范），因本条款产生的争议由有管辖权的人民法院裁决。
 
+## 联系方式
+
+对条款或服务有任何疑问、投诉或建议，欢迎通过邮箱 [Chen10081008@outlook.com](mailto:Chen10081008@outlook.com) 或 [GitHub Issues](https://github.com/Mcchen1008/NextListWeb/issues) 联系运营者。
+
 <GiscusComment />

@@ -10,8 +10,8 @@ description: NextList 支持的全部存储驱动 —— 名称、类别、凭�
 | 驱动（代码名） | 凭证 | 读写 | 备注 |
 | --- | --- | --- | --- |
 | `Quark` 夸克网盘 | Cookie | 全读写 | 支持下载自定义请求头 |
-| `123Pan` 123 云盘 | 账号密码或 access_token | 全读写 | 支持 CRC32 秒传；边缘环境见部署风控说明 |
-| `BaiduNetdisk` 百度网盘 | OAuth refresh_token | 全读写 | 支持官方 / 破解限速、秒传与分片上传 |
+| `123Pan` 123 云盘 | 账号密码或 access_token | 全读写 | 支持 CRC32 秒传；边缘环境登录限制见部署说明 |
+| `BaiduNetdisk` 百度网盘 | OAuth refresh_token | 全读写 | 支持官方接口与加速线路、秒传与分片上传 |
 | `115Open` 115 网盘 | OAuth Token | 全读写 | 开放平台接口 |
 | `189Cloud` 天翼云盘 | 账号密码（Session） | 全读写 | 分片上传；`189PC` 等变体同源 |
 | `139Cloud` 移动云云盘 | 授权 Token | 全读写 | personal_new 接口 |

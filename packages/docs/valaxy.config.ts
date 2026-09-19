@@ -52,6 +52,7 @@ export default defineValaxyConfig<ThemeConfig>({
       { text: '存储', link: '/storage/' },
       { text: '进阶', link: '/advanced/api' },
       { text: 'FAQ', link: '/faq' },
+      { text: '关于', link: '/about' },
       { text: '插件市场', link: '/plugins/' },
       { text: 'GitHub', link: 'https://github.com/Mcchen1008/NextList' },
     ],
@@ -106,7 +107,10 @@ export default defineValaxyConfig<ThemeConfig>({
       },
       {
         text: '帮助',
-        items: [{ text: '常见问题 FAQ', link: '/faq' }],
+        items: [
+          { text: '常见问题 FAQ', link: '/faq' },
+          { text: '关于本项目', link: '/about' },
+        ],
       },
       {
         text: '关于',
@@ -124,7 +128,7 @@ export default defineValaxyConfig<ThemeConfig>({
     },
 
     footer: {
-      message: 'AGPL-3.0 Licensed',
+      message: 'AGPL-3.0 Licensed · 联系我们：Chen10081008@outlook.com',
       copyright: '© 2026 NextList Contributors',
     },
 

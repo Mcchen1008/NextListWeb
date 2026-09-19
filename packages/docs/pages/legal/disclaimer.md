@@ -29,4 +29,8 @@ NextList 是一款以 **AGPL-3.0** 许可证发布的开源文件列表程序，
 
 NextList 基于 AGPL-3.0 许可证发布，许可证全文见项目仓库 LICENSE 文件。文中提及的第三方名称（Cloudflare、GitHub、Google 等）归其各自所有者所有，仅用于说明用途。
 
+## 7. 联系方式
+
+对本声明或项目有任何疑问、投诉（含版权投诉）与建议，欢迎通过邮箱 [Chen10081008@outlook.com](mailto:Chen10081008@outlook.com) 或 [GitHub Issues](https://github.com/Mcchen1008/NextListWeb/issues) 联系我们。
+
 <GiscusComment />

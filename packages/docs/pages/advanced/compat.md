@@ -30,7 +30,7 @@ NextList 与 [OpenList](https://github.com/OpenListTeam/OpenList) 同源同理�
 
 文件接口层面，NextList 刻意对齐了 OpenList 的行为：`/api/fs/list` 支持相同语义的服务端分页（`page<1` 归一为 1、`per_page<1` 返回全量、`total` 为切片前总数）；目录密码按最长前缀 Meta 命中校验，403 消息与 OpenList 一致；响应信封、`fs/get|mkdir|rename|remove|move|copy|put` 的结构与登录（含哈希登录）、密码哈希规则完全一致——为 OpenList 写的客户端脚本大多可以直接指向 NextList。
 
-已知差异：OpenList 管理员登录态可绕过目录密码，NextList 的 fs 接口对所有调用方统一要求密码（前端已内置输错弹窗，体验自洽）；直链签名与 WebDAV 未做 OpenList 签名算法兼容。
+已知差异：OpenList 管理员登录态不受目录密码限制，NextList 的 fs 接口对所有调用方统一要求密码（前端已内置输错弹窗，体验自洽）；直链签名与 WebDAV 未做 OpenList 签名算法兼容。
 
 ## 验证与回归
 

@@ -29,7 +29,7 @@ description: NextList 的隐私政策 —— 信息收集、Cookie、广告与�
 
 ## 数据安全与你的权利
 
-我们采取合理的技术措施（HTTPS 全站加密、最小权限原则、敏感信息占位符化）保护处理的信息。基于 GDPR / CCPA 等法规赋予的权利，你可以要求查询、更正或删除与你相关的个人信息——由于本站几乎不持有身份信息，此类请求通常应向上述第三方服务提出。联系我们：[GitHub Issues](https://github.com/Mcchen1008/NextListWeb/issues)。
+我们采取合理的技术措施（HTTPS 全站加密、最小权限原则、敏感信息占位符化）保护处理的信息。基于 GDPR / CCPA 等法规赋予的权利，你可以要求查询、更正或删除与你相关的个人信息——由于本站几乎不持有身份信息，此类请求通常应向上述第三方服务提出。联系我们：邮箱 [Chen10081008@outlook.com](mailto:Chen10081008@outlook.com) 或 [GitHub Issues](https://github.com/Mcchen1008/NextListWeb/issues)。
 
 ## 政策更新
 

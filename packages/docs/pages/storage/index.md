@@ -26,7 +26,7 @@ NextList 自身不存储任何文件，所有内容来自「存储（Storage）�
 各网盘驱动主要靠三类凭证接入，获取方式高度相似。**Cookie 类**（夸克、UC、天翼、腾讯微云、WPS、超星、豆包等）：在浏览器登录网盘网页版 → F12 打开开发者工具 → Network 标签 → 任选一个 API 请求复制请求头中的 `Cookie` 值，粘贴进存储表单即可。**Token 类**（123 云盘、迅雷、分秒帧等）：同样从请求头复制 `Authorization: Bearer xxx` 中 Token 部分；带 refresh_token 的驱动填 refresh_token 可长期自动续期。**OAuth 类**（阿里云盘 Open、OneDrive、Google Drive、Dropbox、115 Open 等）：按表单内指引完成授权，得到 refresh_token 填入，驱动会自动刷新访问令牌。
 
 > [!TIP]
-> Cookie 与 Token 都有有效期。NextList 会持久化驱动刷新后的新凭证（写入 KV），大多数驱动可以长期免维护；一旦失效，重新抓取覆盖即可，无需删除存储。
+> Cookie 与 Token 都有有效期。NextList 会持久化驱动刷新后的新凭证（写入 KV），大多数驱动可以长期免维护；一旦失效，重新获取并覆盖即可，无需删除存储。
 
 ## 缓存与刷新
 
@@ -38,6 +38,6 @@ NextList 自身不存储任何文件，所有内容来自「存储（Storage）�
 
 ## Serverless 环境注意事项
 
-本地存储（Local）驱动只在 Node 容器模式可用；Cloudflare Workers 等边缘环境没有持久文件系统，请选择网盘或对象存储驱动。123 云盘在边缘环境存在登录风控（详见[部署须知](/deploy/workers#网盘驱动与出口-ip-风控)），推荐直接填 access_token。
+本地存储（Local）驱动只在 Node 容器模式可用；Cloudflare Workers 等边缘环境没有持久文件系统，请选择网盘或对象存储驱动。123 云盘对数据中心 IP 登录存在限制（详见[部署须知](/deploy/workers#网盘驱动与数据中心-ip-登录限制)），推荐使用官方开放平台授权获取 access_token。
 
 <GiscusComment />
