@@ -54,7 +54,7 @@ export function Navbar() {
         </A>
 
         <nav class="nav-links" aria-label="插件市场导航">
-          <a href="/docs/" target="_self">
+          <a href="/" target="_self">
             <BookIcon size={15} />
             文档
           </a>

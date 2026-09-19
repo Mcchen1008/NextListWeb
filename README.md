@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="packages/home/public/logo.svg" width="72" alt="NextList" />
+  <img src="packages/docs/public/logo.svg" width="72" alt="NextList" />
 </p>
 
 <h1 align="center">NextList 官网</h1>
 
 <p align="center">
-  <b>主页 · 文档站 · 插件市场</b><br />
+  <b>文档站（首页） · 插件市场</b><br />
   为开源文件列表 / 网盘管理系统 <a href="https://github.com/Mcchen1008/NextList">NextList</a> 搭建的官方网站<br />
   整体部署于 Cloudflare Pages，插件市场数据存储于 Cloudflare KV
 </p>
@@ -16,8 +16,7 @@
 
 | 部分 | 路由 | 技术栈 | 说明 |
 | --- | --- | --- | --- |
-| 主页 | `/` | SolidJS + Vite（纯静态） | 项目门面：特性介绍、部署引导、界面预览 |
-| 文档站 | `/docs` | Valaxy + valaxy-theme-press（纯静态） | 快速开始 / 部署 / 配置 / 存储挂载 / 插件开发 / FAQ，集成 Giscus 评论 |
+| 文档站（首页） | `/` | Valaxy + valaxy-theme-press（纯静态） | 项目门面与使用文档：快速开始 / 部署 / 配置 / 存储挂载 / 插件开发 / FAQ，集成 Giscus 评论 |
 | 插件市场 | `/plugins` | SolidJS + Vite（SPA） | 浏览 / 搜索 / 详情 / GitHub 登录 / 自动收录 / 评论 |
 | 后端 API | `/api/*` | Cloudflare Pages Functions（TypeScript） | 读 KV + GitHub OAuth + 插件收录 |
 | 存储 | - | Cloudflare KV | 插件列表与 README 缓存 |
@@ -30,11 +29,10 @@ nextlist-web/
 ├── pnpm-workspace.yaml       # pnpm workspace 配置
 ├── wrangler.toml             # Cloudflare Pages 配置（KV 绑定示例）
 ├── scripts/
-│   ├── build.mjs             # 合并三个子包产物到根 dist/
+│   ├── build.mjs             # 合并两个子包产物到根 dist/
 │   └── ensure-dist.mjs       # 本地 API 调试时确保 dist/ 存在
 ├── packages/
-│   ├── home/                 # 主页（SolidJS + Vite）
-│   ├── docs/                 # 文档站（Valaxy + valaxy-theme-press）
+│   ├── docs/                 # 文档站（Valaxy + valaxy-theme-press，即站点首页）
 │   └── plugins/              # 插件市场（SolidJS + Vite SPA）
 ├── functions/
 │   └── api/                  # Pages Functions（自动成为 /api/* 端点）
@@ -61,9 +59,8 @@ nextlist-web/
 ```bash
 pnpm install
 
-# 三个子包可分别独立启动（带 HMR，产物路径与线上一致）
-pnpm dev:home      # 主页        → http://localhost:5173
-pnpm dev:docs      # 文档站      → http://localhost:5174
+# 两个子包可分别独立启动（带 HMR，产物路径与线上一致）
+pnpm dev:docs      # 文档站（首页）→ http://localhost:5174
 pnpm dev:plugins   # 插件市场    → http://localhost:5175/plugins/
 
 # 后端 API（Pages Functions 本地模拟，默认 8788 端口）
@@ -72,22 +69,21 @@ pnpm dev:api                     # → http://localhost:8788
 ```
 
 > [!TIP]
-> 三个前端子包的 Vite dev server 都已配置 `/api` 代理到 `http://localhost:8788`。
+> 两个前端子包的 Vite dev server 都已配置 `/api` 代理到 `http://localhost:8788`。
 > 想同时调试前端 + API：先跑 `pnpm dev:api`，再开需要的 `pnpm dev:*`。
 > API 未启动时页面可正常浏览，仅登录 / 刷新等交互会报错。
 
 ## 四、构建
 
 ```bash
-pnpm build          # 依次构建三个子包，然后合并产物到 dist/
+pnpm build          # 依次构建两个子包，然后合并产物到 dist/
 ```
 
 合并规则（`scripts/build.mjs`）：
 
 | 子包产物 | 目标位置 | 线上路由 |
 | --- | --- | --- |
-| `packages/home/dist` | `dist/` | `/` |
-| `packages/docs/dist` | `dist/docs/` | `/docs` |
+| `packages/docs/dist` | `dist/` | `/`（站点首页） |
 | `packages/plugins/dist` | `dist/plugins/` | `/plugins` |
 
 - 某个子包产物不存在时**跳过并警告，不中断**构建
@@ -221,7 +217,7 @@ npx wrangler pages deploy dist
 
 ## 十、技术说明
 
-- **单仓库多包**：pnpm workspace 管理三个子包，共享统一的 TypeScript 与代码风格
+- **单仓库多包**：pnpm workspace 管理两个子包，共享统一的 TypeScript 与代码风格
 - **样式方案**：全部为手写原生 CSS（设计令牌 + 组件类），未引入任何重型 UI 库
 - **安全边界**：GitHub token 仅 `public_repo` 只读权限，返回给用户本人保存在浏览器，可随时在 GitHub 设置中撤销；服务端不存储 token
 - **评论系统**：Giscus（GitHub Discussions），与 KV 数据完全独立

@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
- * 合并三个子包的构建产物到根 dist/，供 Cloudflare Pages 部署。
+ * 合并子包的构建产物到根 dist/，供 Cloudflare Pages 部署。
  *
  * 合并规则：
- *   packages/home/dist    → dist/           （主页，路由 /）
- *   packages/docs/dist    → dist/docs/      （文档站，路由 /docs）
+ *   packages/docs/dist    → dist/           （文档站即站点首页，路由 /）
  *   packages/plugins/dist → dist/plugins/   （插件市场 SPA，路由 /plugins）
  *
  * 健壮性：某个子包产物不存在时仅警告并跳过，不中断构建。
@@ -29,8 +28,7 @@ const REDIRECTS = `# NextList Web — Cloudflare Pages 路由规则（由 script
 `
 
 const targets = [
-  { name: 'home    (主页)', src: join(root, 'packages/home/dist'), dest: dist },
-  { name: 'docs    (文档站)', src: join(root, 'packages/docs/dist'), dest: join(dist, 'docs') },
+  { name: 'docs    (文档站，首页)', src: join(root, 'packages/docs/dist'), dest: dist },
   { name: 'plugins (插件市场)', src: join(root, 'packages/plugins/dist'), dest: join(dist, 'plugins') },
 ]
 
@@ -64,5 +62,5 @@ if (existsSync(adsTxt)) {
 if (merged === 0) {
   console.warn('⚠ [merge] 没有任何子包产物被合并，dist/ 仅包含 _redirects。')
 } else {
-  console.log(`✓ [merge] 完成：${merged}/3 个子包产物已合并到 dist/`)
+  console.log(`✓ [merge] 完成：${merged}/2 个子包产物已合并到 dist/`)
 }

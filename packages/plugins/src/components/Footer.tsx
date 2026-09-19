@@ -12,11 +12,8 @@ export function Footer() {
         </span>
         <span class="footer-links">
           <A href="/">插件市场</A>
-          <a href="/docs/" target="_self">
-            文档
-          </a>
           <a href="/" target="_self">
-            官网
+            文档
           </a>
           <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
             GitHub

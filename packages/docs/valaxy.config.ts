@@ -133,12 +133,12 @@ export default defineValaxyConfig<ThemeConfig>({
   },
 
   /**
-   * 文档站部署时挂载在 /docs/ 子路径：
-   *   构建产物 packages/docs/dist → 根 dist/docs/（见 scripts/build.mjs）
-   * 因此 vite base 必须为 /docs/，否则产物内资源引用 /assets/* 会 404。
-   * 本地开发保持一致（http://localhost:5174/docs/），与生产行为对齐。
+   * 文档站即站点首页：
+   *   构建产物 packages/docs/dist → 根 dist/（见 scripts/build.mjs）
+   * vite base 必须保持默认的 /，产物内资源才能从站点根正确引用。
+   * 本地开发直接访问 http://localhost:5174/，与生产行为一致。
    */
   vite: {
-    base: '/docs/',
+    base: '/',
   },
 })
