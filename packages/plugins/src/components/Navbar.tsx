@@ -56,11 +56,11 @@ export function Navbar() {
         <nav class="nav-links" aria-label="插件市场导航">
           <a href="/" target="_self">
             <BookIcon size={15} />
-            文档
+            <span class="nav-text">文档</span>
           </a>
           <a href="https://github.com/Mcchen1008/NextList" target="_blank" rel="noopener noreferrer">
             <GitHubIcon size={15} />
-            主仓库
+            <span class="nav-text">主仓库</span>
           </a>
         </nav>
 
@@ -70,7 +70,12 @@ export function Navbar() {
             fallback={
               <button class="btn btn-primary btn-sm" onClick={onLogin} disabled={loggingIn()}>
                 <GitHubIcon size={15} />
-                {loggingIn() ? '跳转中…' : '用 GitHub 登录'}
+                {loggingIn() ? <span>跳转中…</span> : (
+                  <>
+                    <span class="hide-sm">用 GitHub&nbsp;</span>
+                    <span>登录</span>
+                  </>
+                )}
               </button>
             }
           >

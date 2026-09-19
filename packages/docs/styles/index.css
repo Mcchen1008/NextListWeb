@@ -83,6 +83,21 @@ html.dark {
   background-color: #2b333e;
 }
 
+/* ---------- hero 按钮移动端布局 ----------
+   主题默认把所有动作按钮塞进一条不换行的 flex 行，窄屏下互相
+   压缩，中文按钮被挤成一字一行的竖条（英文按钮因单词不可断行
+   而幸免）。参照 doc.oplist.org.cn 的两行式排布：
+   容器允许换行 + 按钮文字不换行、不收缩，窄屏自动排成两行。 */
+.press-home .flex.justify-center.items-center:has(> .sese-btn) {
+  flex-wrap: wrap;
+}
+
+.press-home .sese-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
 /* ---------- logo 背后的光斑：紫蓝双色渐变 → 品牌蓝柔光 ---------- */
 .press-home .press-hero-image .press-hero-image-bg {
   background-image: none;

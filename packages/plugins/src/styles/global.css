@@ -202,6 +202,8 @@ select {
   gap: 9px;
   font-weight: 700;
   font-size: 16.5px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand-name em {
@@ -226,6 +228,8 @@ select {
   border-radius: 8px;
   font-size: 14px;
   color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: color 0.15s ease, background 0.15s ease;
 }
 
@@ -918,6 +922,20 @@ select {
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 720px) {
+  .navbar-inner {
+    gap: 12px;
+  }
+
+  /* 导航链接收起文字，只留图标；登录按钮文字缩短为「登录」 */
+  .nav-text,
+  .hide-sm {
+    display: none;
+  }
+
+  .nav-links a {
+    padding: 6px 9px;
+  }
+
   .nav-user-name {
     display: none;
   }
