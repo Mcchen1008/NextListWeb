@@ -129,22 +129,23 @@ GitHub OAuth App 创建：<https://github.com/settings/developers> →
 - **Authorization callback URL**：`https://<你的域名>/plugins/callback`
 - 仅需 `public_repo` scope，只读公开仓库，不涉及私有数据
 
-### 4. 配置 Giscus 评论（可选）
+### 4. Giscus 评论（已内置，可选自定义）
 
-文档站每个页面与插件详情页的评论区基于 [Giscus](https://giscus.app)（GitHub Discussions）：
+文档站每个页面与插件详情页的评论区基于 [Giscus](https://giscus.app)（GitHub Discussions）。官方参数（`Mcchen1008/NextListWeb` + `Announcements` 分类）已作为公开默认值内置到代码中，仓库 Discussions 也已开启，因此只需一步：
 
-1. 仓库开启 Discussions，并安装 [giscus App](https://github.com/apps/giscus)；
-2. 在 <https://giscus.app> 按引导生成参数；
-3. 在 Pages 构建环境变量中添加（影响 `packages/docs` 与 `packages/plugins` 的构建产物）：
+1. 在仓库安装 [giscus App](https://github.com/apps/giscus)（一次性授权，否则评论区无法加载）；
+2. 提交代码推送后 Pages 自动构建，评论区即可用。
+
+如需把评论指向其它仓库，可通过 Pages 构建环境变量覆盖内置默认值（影响 `packages/docs` 与 `packages/plugins` 的构建产物）：
 
 | 变量 | 说明 |
 | --- | --- |
 | `VITE_GISCUS_REPO` | 如 `Mcchen1008/NextListWeb` |
 | `VITE_GISCUS_REPO_ID` | 如 `R_kgDOxxxxxx` |
-| `VITE_GISCUS_CATEGORY` | 建议 `Announcements` |
+| `VITE_GISCUS_CATEGORY` | 建议 `Announcements`（仅维护者可开新讨论，防灌水） |
 | `VITE_GISCUS_CATEGORY_ID` | 如 `DIC_kwDOxxxxxx` |
 
-未配置时评论区显示占位提示，不影响其他功能。评论数据与插件市场的 KV 数据完全独立。
+评论数据与插件市场的 KV 数据完全独立。
 
 ### 5. 部署
 
@@ -211,8 +212,8 @@ npx wrangler pages deploy dist
 | --- | --- | --- |
 | `REPLACE_WITH_YOUR_KV_NAMESPACE_ID` | `wrangler.toml` | 本地开发的 KV 绑定 |
 | `PLUGINS_KV` 绑定 | Pages Settings | 生产 KV 绑定 |
-| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | Pages Secrets / `.dev.vars` | GitHub OAuth |
-| `VITE_GISCUS_*` 四项 | Pages 构建环境变量 | Giscus 评论 |
+| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | Pages Secrets / `.dev.vars` | GitHub OAuth（插件市场登录，需手动创建 OAuth App） |
+| `VITE_GISCUS_*` 四项 | Pages 构建环境变量（可选覆盖） | Giscus 评论（官方参数已内置） |
 | `siteConfig.url` | `packages/docs/valaxy.config.ts` | 文档站正式域名（SEO） |
 
 ## 十、技术说明

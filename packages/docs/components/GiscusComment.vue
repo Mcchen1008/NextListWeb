@@ -3,18 +3,20 @@ import { computed, onMounted, ref } from 'vue'
 
 /**
  * Giscus 评论组件（基于 GitHub Discussions）
- * 配置通过构建时环境变量注入（.env / Cloudflare Pages 构建环境变量）：
+ * 参数已内置官方仓库的公开配置（Repo ID / Category ID 均为公开信息，
+ * 最终会打包进客户端脚本，不属于敏感数据），构建后即开即用。
+ * 如需指向其它仓库的 Discussions，可通过构建时环境变量覆盖
+ * （.env / Cloudflare Pages 构建环境变量，参数可在 https://giscus.app 生成）：
  *   VITE_GISCUS_REPO          例：Mcchen1008/NextListWeb
  *   VITE_GISCUS_REPO_ID       例：R_kgDOxxxxxx
  *   VITE_GISCUS_CATEGORY      例：Announcements
  *   VITE_GISCUS_CATEGORY_ID   例：DIC_kwDOxxxxxx
- * 三项 ID 均可在 https://giscus.app 生成；未配置时显示占位提示。
  */
 
-const repo = (import.meta.env.VITE_GISCUS_REPO as string | undefined) ?? ''
-const repoId = (import.meta.env.VITE_GISCUS_REPO_ID as string | undefined) ?? ''
+const repo = (import.meta.env.VITE_GISCUS_REPO as string | undefined) ?? 'Mcchen1008/NextListWeb'
+const repoId = (import.meta.env.VITE_GISCUS_REPO_ID as string | undefined) ?? 'R_kgDOUWl4Cg'
 const category = (import.meta.env.VITE_GISCUS_CATEGORY as string | undefined) ?? 'Announcements'
-const categoryId = (import.meta.env.VITE_GISCUS_CATEGORY_ID as string | undefined) ?? ''
+const categoryId = (import.meta.env.VITE_GISCUS_CATEGORY_ID as string | undefined) ?? 'DIC_kwDOUWl4Cs4DF7Lu'
 
 const configured = computed(() => Boolean(repo && repoId && categoryId))
 const container = ref<HTMLElement | null>(null)
