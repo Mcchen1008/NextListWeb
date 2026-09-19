@@ -9,7 +9,7 @@ description: 五分钟上手 NextList —— 在线部署或本地运行、首�
 
 NextList 支持两条上手路径，按你的需求二选一即可。
 
-**路径一：云端部署（推荐）**。如果你希望拥有一个可以直接访问的线上站点，推荐部署到 Cloudflare Workers：免费计划每天 100,000 次请求、全球边缘节点加速、无需维护服务器。完整流程见 [Cloudflare Workers 部署](/deploy/workers)，概括起来只有三步——创建一个 KV 命名空间、`pnpm build` 构建产物、`pnpm deploy:worker` 发布。腾讯云用户也可以选择 [EdgeOne Pages 部署](/deploy/edgeone)。
+**路径一：云端部署（推荐）**。如果你希望拥有一个可以直接访问的线上站点，推荐部署到 Cloudflare Workers：免费计划每天 100,000 次请求、全球边缘节点加速、无需维护服务器。完整流程见 [Cloudflare Workers 部署](/deploy/workers)，支持控制台连接 GitHub 自动构建或 CLI 两种方式。境内访问优先的用户也可以选择 [EdgeOne Pages 部署](/deploy/edgeone)或 [阿里云 ESA 部署](/deploy/esa)。
 
 **路径二：本地开发运行**。如果你想先在本地体验或参与开发，确认已安装 Node.js ≥ 20.19 与 pnpm 9+，然后：
 

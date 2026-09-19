@@ -16,7 +16,7 @@ export default defineValaxyConfig<ThemeConfig>({
       avatar: 'https://github.com/Mcchen1008.png',
     },
     lang: 'zh-CN',
-    description: 'NextList 官方文档：快速开始、用户指南、部署（Cloudflare Workers）、存储挂载、配置、API 与 MCP 接入、插件开发',
+    description: 'NextList 官方文档：快速开始、用户指南、部署（Cloudflare Workers / EdgeOne / 阿里云 ESA）、存储挂载、配置、API 与 MCP 接入、插件开发',
     // 部署后的正式域名（用于 SEO / RSS / sitemap）
     url: 'https://nextlist-web.pages.dev',
     favicon: '/logo.svg',
@@ -73,8 +73,9 @@ export default defineValaxyConfig<ThemeConfig>({
         text: '部署',
         items: [
           { text: 'Cloudflare Workers 部署', link: '/deploy/workers' },
-          { text: '环境变量与绑定', link: '/deploy/env' },
           { text: 'EdgeOne Pages 部署', link: '/deploy/edgeone' },
+          { text: '阿里云 ESA 部署', link: '/deploy/esa' },
+          { text: '环境变量与绑定', link: '/deploy/env' },
         ],
       },
       {
