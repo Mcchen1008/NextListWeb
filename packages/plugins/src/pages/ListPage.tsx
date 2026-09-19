@@ -23,24 +23,29 @@ const ListPage: Component = () => {
 
   const plugins = createMemo<PluginMeta[]>(() => data()?.plugins ?? [])
 
-  /** 全市场 topic 聚合（最多展示 12 个筛选 chip） */
+  /** 全市场 topic / 标签聚合（最多展示 12 个筛选 chip，含插件清单中文 tags） */
   const topics = createMemo(() => {
     const set = new Set<string>()
-    for (const p of plugins()) for (const t of p.topics ?? []) set.add(t)
+    for (const p of plugins()) {
+      for (const t of p.topics ?? []) set.add(t)
+      for (const t of p.tags ?? []) set.add(t)
+    }
     return [...set].sort().slice(0, 12)
   })
 
   const filtered = createMemo<PluginMeta[]>(() => {
     let list = plugins()
-    if (topic()) list = list.filter((p) => p.topics?.includes(topic()))
+    if (topic()) list = list.filter((p) => p.topics?.includes(topic()) || p.tags?.includes(topic()))
     const q = query().trim().toLowerCase()
     if (q) {
       list = list.filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
+          (p.repoName ?? '').toLowerCase().includes(q) ||
           (p.description ?? '').toLowerCase().includes(q) ||
           p.owner.toLowerCase().includes(q) ||
-          p.topics?.some((t) => t.toLowerCase().includes(q))
+          p.topics?.some((t) => t.toLowerCase().includes(q)) ||
+          p.tags?.some((t) => t.toLowerCase().includes(q))
       )
     }
     const sorted = [...list]
@@ -79,7 +84,7 @@ const ListPage: Component = () => {
             <SearchIcon size={16} class="search-icon" />
             <input
               type="search"
-              placeholder="搜索插件名、描述、作者或 topic…"
+              placeholder="搜索插件名、仓库名、描述、作者或标签…"
               value={query()}
               onInput={(e) => setQuery(e.currentTarget.value)}
               aria-label="搜索插件"

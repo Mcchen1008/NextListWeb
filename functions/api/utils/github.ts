@@ -1,5 +1,5 @@
 /// <reference types="@cloudflare/workers-types" />
-import type { GitHubRepo, GitHubUser, PluginMeta } from './types'
+import type { GitHubRepo, GitHubUser, PluginManifest, PluginMeta } from './types'
 
 /**
  * GitHub API 封装（全部为公开仓库只读操作，token 仅需 public_repo scope）。
@@ -72,6 +72,34 @@ export async function fetchRepoReadme(token: string, owner: string, repo: string
 }
 
 /**
+ * 仓库根目录 plugin.json（市场展示元数据来源）。
+ * 走 raw 直链，不消耗 GitHub API 配额；不存在 / 解析失败均返回 null（调用方回退仓库信息）。
+ * 字段清洗：仅接受非空字符串，tags 最多保留 8 个。
+ */
+export async function fetchRepoManifest(owner: string, repo: string, branch: string): Promise<PluginManifest | null> {
+  const url = `${RAW_HOST}/${owner}/${repo}/${branch}/plugin.json`
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } })
+    if (!res.ok) return null
+    const data = (await res.json()) as Record<string, unknown>
+    const str = (v: unknown): string | null => (typeof v === 'string' && v.trim() ? v.trim() : null)
+    const tags = Array.isArray(data.tags)
+      ? [...new Set(data.tags.filter((t): t is string => typeof t === 'string' && !!t.trim()).map((t) => t.trim()))].slice(0, 8)
+      : []
+    return {
+      id: str(data.id),
+      name: str(data.name),
+      description: str(data.description),
+      version: str(data.version),
+      author: str(data.author),
+      tags,
+    }
+  } catch {
+    return null
+  }
+}
+
+/**
  * 图标约定：仓库根目录存在 icon.png 则使用其 raw 直链，否则返回 null。
  * 使用 HEAD 探测 raw 直链，不消耗 GitHub API 配额；只存 URL，不转存文件。
  */
@@ -110,8 +138,11 @@ export interface CollectResult {
 }
 
 /**
- * 收录流程核心：搜索 → 逐仓库补全（README / 图标 / 下载链接）。
+ * 收录流程核心：搜索 → 逐仓库补全（清单 / README / 图标 / 下载链接）。
  * 供「登录自动收录」与「手动刷新」两个入口复用。
+ *
+ * 展示元数据以仓库根目录 plugin.json 为准（见插件开发指南）：
+ *   name = manifest.name ?? 仓库名；description / version / tags 同样 manifest 优先。
  */
 export async function collectPlugins(token: string, login: string, topic: string): Promise<CollectResult> {
   const repos = await searchUserReposByTopic(token, login, topic)
@@ -121,26 +152,31 @@ export async function collectPlugins(token: string, login: string, topic: string
   for (const repo of repos) {
     if (repo.fork) continue
     const owner = repo.owner.login
-    const name = repo.name
+    const repoName = repo.name
     const branch = repo.default_branch || 'main'
 
-    // README / 图标 / 下载链接三路并行，减少整体耗时
-    const [readme, icon, downloadUrl] = await Promise.all([
-      fetchRepoReadme(token, owner, name),
-      resolveRepoIcon(owner, name, branch),
-      resolveDownloadUrl(token, owner, name, repo.html_url),
+    // README / 清单 / 图标 / 下载链接四路并行，减少整体耗时
+    const [readme, icon, downloadUrl, manifest] = await Promise.all([
+      fetchRepoReadme(token, owner, repoName),
+      resolveRepoIcon(owner, repoName, branch),
+      resolveDownloadUrl(token, owner, repoName, repo.html_url),
+      fetchRepoManifest(owner, repoName, branch),
     ])
 
     plugins.push({
       id: repo.full_name,
-      name,
-      description: repo.description ?? '',
+      name: manifest?.name || repoName,
+      repoName,
+      description: manifest?.description ?? repo.description ?? '',
       owner,
       ownerAvatar: repo.owner.avatar_url,
       repoUrl: repo.html_url,
       icon,
       stars: repo.stargazers_count ?? 0,
       topics: repo.topics ?? [],
+      tags: manifest?.tags ?? [],
+      version: manifest?.version ?? null,
+      pluginId: manifest?.id ?? null,
       updatedAt: repo.pushed_at || repo.updated_at || new Date().toISOString(),
       downloadUrl,
       defaultBranch: branch,

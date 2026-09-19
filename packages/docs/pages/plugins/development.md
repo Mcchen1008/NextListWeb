@@ -59,11 +59,22 @@ my-plugin.zip
 | 字段 | 说明 |
 | --- | --- |
 | `id` | 全局唯一标识，建议 `插件名-功能` 命名 |
+| `name` | **插件展示名**（必填）：插件市场、后台插件列表均以此名称展示插件，而非 GitHub 仓库名；支持中文，如 `动态视频背景` |
+| `description` | 插件描述：市场卡片与详情页优先展示清单里的描述（未填时回退仓库描述） |
+| `version` | 插件版本号（SemVer 风格，如 `1.0.0`），市场与后台展示为 `v1.0.0` 版本徽标 |
+| `author` | 作者署名（可用 GitHub 用户名或显示名） |
+| `tags` | 标签数组（支持中文，如 `["背景", "美化"]`），市场的筛选与搜索使用；未填时回退仓库 topics |
 | `entry` / `style` / `icon` | 入口脚本 / 样式 / 图标在 ZIP 内的相对路径 |
 | `config_schema` | 可视化配置项数组（`key` / `label` / `type` / `default`） |
 | `permissions` | 权限声明字典，见下表 |
 
-常用权限：`ui:widget`（悬浮挂件）、`ui:file-action`（文件操作扩展）、`fs:read` / `fs:write`（文件系统读写）、`admin:read`（管理接口）、`notify`（消息通知）。
+常用权限：`ui:widget`（悬浮挂件）、`ui:file-action`（文件操作扩展）、`fs:read` / `fs:write`（文件系统读写）、`admin:read`（管理接口）、`notify`（消息通知）、`dom:inject`（页面样式 / DOM 注入）。
+
+> [!IMPORTANT]
+> **插件市场收录规则**：插件仓库被收录时，市场会读取仓库根目录的 `plugin.json`，并以清单中的
+> `name` / `description` / `version` / `tags` 作为展示元数据（缺失的字段才回退到 GitHub 仓库名与描述）。
+> 因此请在仓库根目录放一份有效的 `plugin.json`，其中 `name` 务必填写为用户友好的插件名
+> （建议中文或自然语言名称），而不是类似 `my-plugin-demo` 的仓库名/英文标识。
 
 ## 四、运行时 SDK 概览
 
@@ -94,5 +105,7 @@ zip -r ../my-plugin.zip plugin.json index.js style.css icon.svg README.md
 ## 六、发布到插件市场
 
 将插件仓库发布到 GitHub 并打上 `nextlist-plugin` topic 后，在[插件市场](/plugins/)用 GitHub 登录并点击「刷新我的插件」，你的插件就会被自动收录（含 README 展示、Release 下载直链与评论互动）。
+
+收录时市场会以仓库根目录 `plugin.json` 的 `name`（插件展示名）、`description`（描述）、`version`（版本号）、`tags`（标签）作为市场展示信息，因此请确保这些字段填写完整、语义清晰；作者更新清单后重新「刷新我的插件」即可同步到市场。
 
 <GiscusComment />

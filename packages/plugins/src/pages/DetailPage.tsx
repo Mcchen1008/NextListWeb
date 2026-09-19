@@ -2,9 +2,10 @@ import { A, useParams } from '@solidjs/router'
 import { For, Show, createResource } from 'solid-js'
 import type { Component } from 'solid-js'
 import { fetchPlugin, fetchReadme } from '../api/client'
-import { IconBadge } from '../components/IconBadge'
 import { Markdown } from '../components/Markdown'
 import { Giscus } from '../components/Giscus'
+import { versionLabel } from '../components/PluginCard'
+import { IconBadge } from '../components/IconBadge'
 import { DownloadIcon, ExternalLinkIcon, GitHubIcon, StarIcon, ArrowLeftIcon } from '../components/Icons'
 import { formatStars, timeAgo } from '../utils/format'
 
@@ -41,6 +42,9 @@ const DetailPage: Component = () => {
                   <div class="detail-head-main">
                     <div class="detail-title-row">
                       <h1>{plugin().name}</h1>
+                      <Show when={versionLabel(plugin().version)}>
+                        {(v) => <span class="card-version detail-version">{v()}</span>}
+                      </Show>
                       <span class="detail-stars" title={`${plugin().stars} stars`}>
                         <StarIcon size={15} />
                         {formatStars(plugin().stars)}
@@ -54,8 +58,10 @@ const DetailPage: Component = () => {
                         <span>{plugin().owner}</span>
                       </a>
                       <span class="meta-dot">·</span>
+                      <span class="detail-repo-slug" title="插件仓库名">{plugin().repoName ?? plugin().id}</span>
+                      <span class="meta-dot">·</span>
                       <span>更新于 {timeAgo(plugin().updatedAt)}</span>
-                      <For each={plugin().topics.slice(0, 4)}>
+                      <For each={((plugin().tags?.length ? plugin().tags : plugin().topics) ?? []).slice(0, 4)}>
                         {(t) => <span class="chip mini">{t}</span>}
                       </For>
                     </div>

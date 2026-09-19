@@ -7,8 +7,9 @@ import { errorResponse, jsonResponse, preflight } from '../utils/http'
  * GET /api/plugins/search?q=<关键词>&limit=<条数>
  *
  * 服务端按关键词搜索插件（供插件市场站与 NextList 主程序的市场代理调用）。
- * 匹配范围与加权：名称（前缀 +2 / 包含 +4）> topics（+2）> 描述 / 作者（+1），
- * 同分时按 Star 数降序。q 为空时返回全量列表（按 Star 降序，截取前 limit 条）。
+ * 匹配范围与加权：插件名（前缀 +2 / 包含 +4）> 仓库名（+3）> tags / topics（+2）>
+ * 描述 / 作者（+1）。插件名与仓库名分别匹配，因此按"动态视频背景"或
+ * "video-background"均可命中。同分时按 Star 数降序。q 为空时返回全量列表。
  *
  * 响应：{ query: string, plugins: PluginMeta[], total: number }
  * （total 为过滤后总数，未截断；前端可据此展示"共 N 个"）
@@ -17,12 +18,17 @@ import { errorResponse, jsonResponse, preflight } from '../utils/http'
 const DEFAULT_LIMIT = 60
 const MAX_LIMIT = 200
 
+function includesAny(values: (string | null | undefined)[] | undefined, q: string): boolean {
+  return !!values?.some((v) => !!v && v.toLowerCase().includes(q))
+}
+
 function scoreOf(plugin: PluginMeta, q: string): number {
   let score = 0
   const name = (plugin.name ?? '').toLowerCase()
   if (name.includes(q)) score += 4
   if (name.startsWith(q)) score += 2
-  if (plugin.topics?.some((t) => t.toLowerCase().includes(q))) score += 2
+  if ((plugin.repoName ?? '').toLowerCase().includes(q)) score += 3
+  if (includesAny(plugin.tags, q) || plugin.topics?.some((t) => t.toLowerCase().includes(q))) score += 2
   if ((plugin.description ?? '').toLowerCase().includes(q)) score += 1
   if ((plugin.owner ?? '').toLowerCase().includes(q)) score += 1
   return score

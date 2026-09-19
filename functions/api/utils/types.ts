@@ -4,12 +4,17 @@
  * 插件元数据（KV `plugins:list` 数组元素）
  * 对外结构与需求文档保持一致，`defaultBranch` 为补充字段，
  * 用于前端把 README 中的相对图片链接解析为 raw.githubusercontent.com 绝对地址。
+ *
+ * 展示元数据（name / description / version / tags）优先取自仓库根目录
+ * `plugin.json`（插件清单），缺失时回退到 GitHub 仓库信息；仓库名固定存于 `repoName`。
  */
 export interface PluginMeta {
   /** 唯一标识：owner/repo */
   id: string
-  /** 插件名（仓库名） */
+  /** 插件展示名：优先 plugin.json 的 name，回退仓库名 */
   name: string
+  /** 仓库名（name 的回退来源；搜索与次要展示用） */
+  repoName?: string
   description: string
   /** GitHub 用户名 */
   owner: string
@@ -22,12 +27,28 @@ export interface PluginMeta {
   stars: number
   /** 仓库 topics，包含收录约定的 `nextlist-plugin` */
   topics: string[]
+  /** 插件清单标签（plugin.json 的 tags，支持中文），市场展示优先于 topics */
+  tags?: string[]
+  /** 插件版本号（plugin.json 的 version），无则为 null */
+  version?: string | null
+  /** 插件清单唯一 id（plugin.json 的 id，区别于 owner/repo），用于与已安装插件精确匹配 */
+  pluginId?: string | null
   /** 最近推送时间（ISO 8601） */
   updatedAt: string
   /** 下载链接：优先 GitHub Release 资产直链，无 Release 时回退仓库地址 */
   downloadUrl: string
   /** 默认分支（补充字段） */
   defaultBranch?: string
+}
+
+/** 仓库根目录 plugin.json（市场收录展示元数据来源；仅保留所需字段） */
+export interface PluginManifest {
+  id: string | null
+  name: string | null
+  description: string | null
+  version: string | null
+  author: string | null
+  tags: string[]
 }
 
 /** GitHub Search API 返回的仓库（仅保留所需字段） */
