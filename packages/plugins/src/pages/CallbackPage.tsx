@@ -1,10 +1,8 @@
 import { A, useNavigate, useSearchParams } from '@solidjs/router'
 import { onMount, Show, createSignal } from 'solid-js'
 import type { Component } from 'solid-js'
-import { exchangeCode } from '../api/client'
-import { saveSession } from '../store/session'
 import { showToast } from '../store/toast'
-import { consumeState } from '../utils/oauth'
+import { completeOAuthCallback } from '../utils/oauth'
 import { GitHubIcon } from '../components/Icons'
 
 /**
@@ -32,16 +30,9 @@ const CallbackPage: Component = () => {
       return
     }
 
-    // state 校验失败：可能是直接访问本页或会话被篡改
-    if (!consumeState(state)) {
-      setError('登录状态校验失败（state 不匹配），请从插件市场重新发起登录')
-      setBusy(false)
-      return
-    }
-
-    exchangeCode(code)
+    // completeOAuthCallback：state 校验 → 服务端换取登录态（同时完成插件收录）
+    completeOAuthCallback(code, state)
       .then((res) => {
-        saveSession(res.user, res.token)
         showToast(
           `欢迎，${res.user.name}！本次收录 / 更新 ${res.collected} 个插件（市场共 ${res.total} 个）`,
           'success'

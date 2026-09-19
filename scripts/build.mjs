@@ -7,8 +7,8 @@
  *   packages/plugins/dist → dist/plugins/   （插件市场 SPA，路由 /plugins）
  *
  * 健壮性：某个子包产物不存在时仅警告并跳过，不中断构建。
- * 额外生成 dist/_redirects：为插件市场 SPA 提供客户端路由回退，
- * 同时避免 shadow /plugins/assets/* 等真实静态资源。
+ * 额外生成 dist/_redirects（仅注释）与 dist/404.html；SPA 页面路径回退
+ * 由 functions/plugins/ 下的 Pages Functions 承担。
  */
 import { cpSync, existsSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
@@ -18,13 +18,11 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
 
 const REDIRECTS = `# NextList Web — Cloudflare Pages 路由规则（由 scripts/build.mjs 自动生成）
-# 插件市场为客户端路由 SPA：页面路径回退到其 index.html。
-# 注意：不要使用 /plugins/* 全量匹配，否则会 shadow /plugins/assets/* 静态资源。
-/plugins /plugins/index.html 200
-/plugins/ /plugins/index.html 200
-/plugins/callback /plugins/index.html 200
-/plugins/callback/ /plugins/index.html 200
-/plugins/plugin/* /plugins/index.html 200
+# 插件市场 SPA 的页面路径回退（/plugins/callback、/plugins/plugin/:owner/:repo）
+# 由 functions/plugins/ 下的 Pages Functions 承担：workerd 会把 _redirects 的
+# rewrite 规范化 308（rewrite 到 X/index.html 判为无限循环忽略；rewrite 到
+# 普通 .html 被 clean-URL 去扩展名），均会丢失路径或授权 query；Function 返回
+# 资产则 URL 原样保留。/plugins 与 /plugins/ 依赖目录索引自动服务 index.html。
 `
 
 const targets = [
@@ -47,7 +45,7 @@ for (const t of targets) {
 }
 
 writeFileSync(join(dist, '_redirects'), REDIRECTS)
-console.log(`✓ [merge] 写入 dist/_redirects（插件市场 SPA 路由回退）`)
+console.log(`✓ [merge] 写入 dist/_redirects（SPA 回退由 functions/plugins/ 承担，此文件仅留注释）`)
 
 // 根级 404 兜底页：Cloudflare Pages 对所有未匹配路径返回此页，
 // 避免 /plugins 等路由异常时访客看到白板 404。风格与文档站一致。

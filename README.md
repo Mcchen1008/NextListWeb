@@ -126,8 +126,9 @@ Dashboard → 项目 → Settings → Environment variables：
 GitHub OAuth App 创建：<https://github.com/settings/developers> →
 
 - Homepage URL：`https://<你的域名>`
-- **Authorization callback URL**：`https://<你的域名>/plugins/callback`
+- **Authorization callback URL**：`https://<你的域名>/plugins/callback`（推荐；填 `https://<你的域名>/plugins/` 也可正常登录，两种落点均已兼容）
 - 仅需 `public_repo` scope，只读公开仓库，不涉及私有数据
+- 使用自定义域名访问时，callback URL 需与浏览器地址栏的域名一致（GitHub 按此校验）
 
 ### 4. Giscus 评论（已内置，可选自定义）
 

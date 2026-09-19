@@ -58,6 +58,8 @@ export interface GitHubUser {
 export interface Env {
   /** KV 绑定：插件市场数据（在 Pages 设置或 wrangler.toml 中绑定） */
   PLUGINS_KV: KVNamespace
+  /** 静态资产绑定（Pages 自动提供）：用于 SPA 回退时原样返回 index.html */
+  ASSETS: { fetch: (url: string) => Promise<Response> }
   /** GitHub OAuth App Client ID（Secret，勿提交） */
   GITHUB_CLIENT_ID?: string
   /** GitHub OAuth App Client Secret（Secret，勿提交） */
