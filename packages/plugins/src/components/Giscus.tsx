@@ -1,4 +1,5 @@
 import { onMount, Show } from 'solid-js'
+import { giscusLang, t } from '../i18n'
 
 /**
  * Giscus 评论组件（基于 GitHub Discussions，与文档站同一套配置约定）。
@@ -7,6 +8,9 @@ import { onMount, Show } from 'solid-js'
  * 可通过构建时环境变量覆盖（在 https://giscus.app 生成）：
  *   VITE_GISCUS_REPO / VITE_GISCUS_REPO_ID / VITE_GISCUS_CATEGORY / VITE_GISCUS_CATEGORY_ID
  * 评论数据与插件市场 KV 数据完全独立。
+ *
+ * 语言：脚本按挂载时的站点语言注入（giscusLang()）。切换语言后需刷新
+ * 页面才能重载评论区 —— 评论区为低频交互，可接受。
  */
 
 const REPO = (import.meta.env.VITE_GISCUS_REPO as string | undefined) ?? 'Mcchen1008/NextListWeb'
@@ -35,7 +39,7 @@ export function Giscus() {
     script.setAttribute('data-emit-metadata', '0')
     script.setAttribute('data-input-position', 'top')
     script.setAttribute('data-theme', 'preferred_color_scheme')
-    script.setAttribute('data-lang', 'zh-CN')
+    script.setAttribute('data-lang', giscusLang())
     script.setAttribute('data-loading', 'lazy')
     container.appendChild(script)
   })
@@ -43,16 +47,11 @@ export function Giscus() {
   return (
     <Show
       when={CONFIGURED}
-      fallback={
-        <p class="giscus-tip">
-          评论区尚未启用：需要在构建时配置 VITE_GISCUS_REPO / VITE_GISCUS_REPO_ID / VITE_GISCUS_CATEGORY_ID
-          环境变量（在 https://giscus.app 生成，详见官网仓库 README）。
-        </p>
-      }
+      fallback={<p class="giscus-tip">{t('giscus.disabledTip')}</p>}
     >
       <section class="giscus-block">
-        <h2>评论</h2>
-        <p class="giscus-subtitle">使用 GitHub 账号参与讨论，数据存储于 GitHub Discussions</p>
+        <h2>{t('giscus.title')}</h2>
+        <p class="giscus-subtitle">{t('giscus.subtitle')}</p>
         <div ref={container} class="giscus-container" />
       </section>
     </Show>

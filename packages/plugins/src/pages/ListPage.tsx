@@ -6,6 +6,7 @@ import { PluginCard } from '../components/PluginCard'
 import { SearchIcon, RefreshIcon } from '../components/Icons'
 import { token, user } from '../store/session'
 import { showToast } from '../store/toast'
+import { t } from '../i18n'
 
 type SortKey = 'stars' | 'updatedAt' | 'name'
 
@@ -56,12 +57,12 @@ const ListPage: Component = () => {
   })
 
   async function onRefresh() {
-    const t = token()
-    if (!t || refreshing()) return
+    const t0 = token()
+    if (!t0 || refreshing()) return
     setRefreshing(true)
     try {
-      const res = await refreshMyPlugins(t)
-      showToast(`刷新完成：本次收录 / 更新 ${res.collected} 个插件，市场共 ${res.total} 个`, 'success')
+      const res = await refreshMyPlugins(t0)
+      showToast(t('nav.refreshDone', { collected: res.collected, total: res.total }), 'success')
       await refetch()
     } catch (err) {
       showToast((err as Error).message, 'error')
@@ -73,10 +74,11 @@ const ListPage: Component = () => {
   return (
     <div class="container page">
       <section class="list-hero">
-        <h1>NextList 插件市场</h1>
+        <h1>NextList {t('nav.brandSuffix')}</h1>
         <p class="list-hero-desc">
-          发现 NextList 插件：悬浮挂件、主题、预览扩展与效率工具。给你的插件仓库打上{' '}
-          <code>nextlist-plugin</code> topic，用 GitHub 登录即可被自动收录。
+          {t('list.descBefore')}
+          <code>nextlist-plugin</code>
+          {t('list.descAfter')}
         </p>
 
         <div class="list-toolbar">
@@ -84,40 +86,40 @@ const ListPage: Component = () => {
             <SearchIcon size={16} class="search-icon" />
             <input
               type="search"
-              placeholder="搜索插件名、仓库名、描述、作者或标签…"
+              placeholder={t('list.searchPlaceholder')}
               value={query()}
               onInput={(e) => setQuery(e.currentTarget.value)}
-              aria-label="搜索插件"
+              aria-label={t('list.searchPlaceholder')}
             />
           </div>
           <div class="toolbar-right">
             <select
               value={sort()}
               onChange={(e) => setSort(e.currentTarget.value as SortKey)}
-              aria-label="排序方式"
+              aria-label={t('list.sortAria')}
             >
-              <option value="stars">按 Star 最多</option>
-              <option value="updatedAt">按最近更新</option>
-              <option value="name">按名称</option>
+              <option value="stars">{t('list.sortStars')}</option>
+              <option value="updatedAt">{t('list.sortUpdated')}</option>
+              <option value="name">{t('list.sortName')}</option>
             </select>
             <Show when={user() && token()}>
               <button class="btn btn-secondary btn-sm" onClick={onRefresh} disabled={refreshing()}>
                 <RefreshIcon size={14} class={refreshing() ? 'spin' : undefined} />
-                {refreshing() ? '刷新中…' : '刷新我的插件'}
+                {refreshing() ? t('nav.refreshing') : t('nav.refresh')}
               </button>
             </Show>
           </div>
         </div>
 
         <Show when={topics().length > 0}>
-          <div class="topic-filter" aria-label="按 topic 筛选">
+          <div class="topic-filter" aria-label={t('list.filterAria')}>
             <button class={topic() === '' ? 'chip active' : 'chip'} onClick={() => setTopic('')}>
-              全部
+              {t('list.all')}
             </button>
             <For each={topics()}>
-              {(t) => (
-                <button class={topic() === t ? 'chip active' : 'chip'} onClick={() => setTopic(t === topic() ? '' : t)}>
-                  {t}
+              {(topicName) => (
+                <button class={topic() === topicName ? 'chip active' : 'chip'} onClick={() => setTopic(topicName === topic() ? '' : topicName)}>
+                  {topicName}
                 </button>
               )}
             </For>
@@ -132,8 +134,10 @@ const ListPage: Component = () => {
               when={filtered().length > 0}
               fallback={
                 <div class="empty-block">
-                  <p>没有匹配的插件。</p>
-                  <p class="empty-sub">换个关键词试试，或者给你的插件仓库打上 <code>nextlist-plugin</code> topic 成为第一个收录者。</p>
+                  <p>{t('list.noResult')}</p>
+                  <p class="empty-sub">
+                    {t('list.noResultBefore')}<code>nextlist-plugin</code>{t('list.noResultAfter')}
+                  </p>
                 </div>
               }
             >
@@ -141,8 +145,8 @@ const ListPage: Component = () => {
                 <For each={filtered()}>{(p) => <PluginCard plugin={p} />}</For>
               </div>
               <p class="result-count">
-                共 {filtered().length} 个插件
-                {data()?.total !== filtered().length ? `（全市场 ${data()?.total} 个）` : ''}
+                {t('list.resultCount', { n: filtered().length })}
+                {data()?.total !== filtered().length ? t('list.resultCountAll', { n: data()?.total ?? 0 }) : ''}
               </p>
             </Show>
           </Show>
@@ -156,7 +160,7 @@ function LoadingBlock() {
   return (
     <div class="center-block">
       <span class="spinner" aria-hidden="true" />
-      <p>正在加载插件列表…</p>
+      <p>{t('list.loading')}</p>
     </div>
   )
 }
@@ -164,10 +168,10 @@ function LoadingBlock() {
 function ErrorBlock(props: { message?: string; onRetry: () => void }) {
   return (
     <div class="center-block error">
-      <p>插件服务暂不可用：{props.message ?? '未知错误'}</p>
-      <p class="empty-sub">如果刚完成部署，请检查 Pages 的 PLUGINS_KV 绑定是否配置正确。</p>
+      <p>{t('list.errorPrefix', { message: props.message ?? t('list.unknownError') })}</p>
+      <p class="empty-sub">{t('list.errorHint')}</p>
       <button class="btn btn-secondary btn-sm" onClick={props.onRetry}>
-        重试
+        {t('list.retry')}
       </button>
     </div>
   )

@@ -33,7 +33,7 @@ Delete the persisted data (the user records in `public_data/db.json` or in the K
 
 ## Q: How do I join the plugin ecosystem?
 
-Tag your plugin repository with the `nextlist-plugin` topic, then log in at the [plugin market](/plugins/) and hit refresh — it gets indexed automatically. See the [Plugin Development Guide](/plugins/development) for development questions.
+Tag your plugin repository with the `nextlist-plugin` topic, then log in at the [plugin market](/plugins/?lang=en) and hit refresh — it gets indexed automatically. See the [Plugin Development Guide](/plugins/development) for development questions.
 
 ## Q: How is this website built?
 

@@ -1,6 +1,7 @@
 import { exchangeCode, fetchAuthConfig } from '../api/client'
 import { saveSession } from '../store/session'
 import { showToast } from '../store/toast'
+import { t } from '../i18n'
 import type { AuthResult } from '../types'
 
 /**
@@ -21,7 +22,7 @@ const STATE_KEY = 'nextlist_oauth_state'
 export async function startLogin(): Promise<void> {
   const cfg = await fetchAuthConfig()
   if (!cfg.configured || !cfg.clientId) {
-    throw new Error('管理员尚未配置 GitHub OAuth（GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET），详见官网仓库 README')
+    throw new Error(t('auth.notConfigured'))
   }
   const state = crypto.randomUUID()
   try {
@@ -57,7 +58,7 @@ export function consumeState(expected: string | null): boolean {
  */
 export async function completeOAuthCallback(code: string, state: string | null): Promise<AuthResult> {
   if (!consumeState(state)) {
-    throw new Error('登录状态校验失败（state 不匹配），请从插件市场重新发起登录')
+    throw new Error(t('auth.stateMismatch'))
   }
   const res = await exchangeCode(code)
   saveSession(res.user, res.token)
@@ -88,11 +89,11 @@ export async function handleStrayOAuthCallback(): Promise<boolean> {
   try {
     const res = await completeOAuthCallback(code, state)
     showToast(
-      `欢迎，${res.user.name}！本次收录 / 更新 ${res.collected} 个插件（市场共 ${res.total} 个）`,
+      t('auth.welcome', { name: res.user.name, collected: res.collected, total: res.total }),
       'success'
     )
   } catch (err) {
-    showToast((err as Error).message || '登录失败，请稍后再试', 'error')
+    showToast((err as Error).message || t('auth.failed'), 'error')
   }
   return true
 }

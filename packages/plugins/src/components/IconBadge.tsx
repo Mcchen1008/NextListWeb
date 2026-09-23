@@ -1,5 +1,6 @@
 import { createSignal, Show } from 'solid-js'
 import type { PluginMeta } from '../types'
+import { t } from '../i18n'
 
 /**
  * 插件图标：
@@ -44,7 +45,7 @@ export function IconBadge(props: { plugin: PluginMeta; size: number; rounded?: b
       <img
         class="plugin-icon"
         src={src()}
-        alt={`${props.plugin.name} 图标`}
+        alt={t('card.iconAlt', { name: props.plugin.name })}
         width={props.size}
         height={props.size}
         loading="lazy"

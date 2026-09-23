@@ -1,4 +1,5 @@
 import { A } from '@solidjs/router'
+import { t } from '../i18n'
 
 const REPO_URL = 'https://github.com/Mcchen1008/NextList'
 
@@ -7,13 +8,14 @@ export function Footer() {
     <footer class="footer">
       <div class="container footer-inner">
         <span>
-          NextList 插件市场 · 用 GitHub 登录即可收录你的插件（仓库需打上{' '}
-          <code>nextlist-plugin</code> topic）
+          {t('footer.tipBefore')}
+          <code>nextlist-plugin</code>
+          {t('footer.tipAfter')}
         </span>
         <span class="footer-links">
-          <A href="/">插件市场</A>
+          <A href="/">{t('footer.market')}</A>
           <a href="/" target="_self">
-            文档
+            {t('footer.docs')}
           </a>
           <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
             GitHub

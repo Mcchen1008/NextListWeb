@@ -18,6 +18,9 @@ hero:
       text: Deploy Guide
       link: /deploy/workers
     - theme: alt
+      text: Plugin Market
+      link: /plugins/?lang=en
+    - theme: alt
       text: GitHub
       link: https://github.com/Mcchen1008/NextList
 

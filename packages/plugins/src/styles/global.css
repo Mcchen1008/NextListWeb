@@ -288,6 +288,25 @@ select {
   border-color: var(--brand-blue);
 }
 
+/* ---------- 语言切换（中 / EN） ---------- */
+.lang-toggle-text {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* 登录按钮的双文案：桌面显示完整句式，窄屏只留短句（.hide-sm 窄屏隐藏，见下方） */
+.show-sm {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .show-sm {
+    display: inline;
+  }
+}
+
 /* ---------- 列表页头部 ---------- */
 .list-hero h1 {
   font-size: clamp(26px, 4vw, 34px);

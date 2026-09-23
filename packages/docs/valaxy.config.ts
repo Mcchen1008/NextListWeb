@@ -65,6 +65,7 @@ export default defineValaxyConfig<ThemeConfig>({
             { text: 'Deploy', link: '/en/deploy/workers' },
             { text: 'FAQ', link: '/en/faq' },
             { text: 'About', link: '/en/about' },
+            { text: 'Plugins', link: '/plugins/?lang=en' },
             { text: 'GitHub', link: 'https://github.com/Mcchen1008/NextList' },
           ],
           sidebar: [
@@ -113,7 +114,7 @@ export default defineValaxyConfig<ThemeConfig>({
       { text: '进阶', link: '/advanced/api' },
       { text: 'FAQ', link: '/faq' },
       { text: '关于', link: '/about' },
-      { text: '插件市场', link: '/plugins/' },
+      { text: '插件市场', link: '/plugins/?lang=zh' },
       { text: 'GitHub', link: 'https://github.com/Mcchen1008/NextList' },
     ],
 

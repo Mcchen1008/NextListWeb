@@ -2,6 +2,7 @@ import { A } from '@solidjs/router'
 import { For, Show } from 'solid-js'
 import type { PluginMeta } from '../types'
 import { formatStars, timeAgo } from '../utils/format'
+import { t } from '../i18n'
 import { IconBadge } from './IconBadge'
 import { StarIcon } from './Icons'
 
@@ -18,7 +19,7 @@ export function versionLabel(version: string | null | undefined): string | null 
 
 export function PluginCard(props: { plugin: PluginMeta }) {
   return (
-    <A class="plugin-card" href={`/plugin/${props.plugin.id}`} aria-label={`查看插件 ${props.plugin.name}`}>
+    <A class="plugin-card" href={`/plugin/${props.plugin.id}`} aria-label={t('card.viewAria', { name: props.plugin.name })}>
       <div class="card-head">
         <IconBadge plugin={props.plugin} size={46} rounded />
         <div class="card-title">
@@ -32,17 +33,17 @@ export function PluginCard(props: { plugin: PluginMeta }) {
             {props.plugin.owner}/{props.plugin.repoName ?? props.plugin.id}
           </span>
         </div>
-        <span class="card-stars" title={`${props.plugin.stars} stars`}>
+        <span class="card-stars" title={t('card.starsTitle', { n: props.plugin.stars })}>
           <StarIcon size={13} />
           {formatStars(props.plugin.stars)}
         </span>
       </div>
 
-      <p class="card-desc">{props.plugin.description || '暂无描述'}</p>
+      <p class="card-desc">{props.plugin.description || t('card.noDesc')}</p>
 
       <div class="card-foot">
         <div class="card-topics">
-          <For each={displayTags(props.plugin).slice(0, 2)}>{(t) => <span class="chip mini">{t}</span>}</For>
+          <For each={displayTags(props.plugin).slice(0, 2)}>{(tag) => <span class="chip mini">{tag}</span>}</For>
         </div>
         <span class="card-time">{timeAgo(props.plugin.updatedAt)}</span>
       </div>

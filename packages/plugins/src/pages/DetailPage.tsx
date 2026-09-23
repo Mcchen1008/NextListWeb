@@ -8,6 +8,7 @@ import { versionLabel } from '../components/PluginCard'
 import { IconBadge } from '../components/IconBadge'
 import { DownloadIcon, ExternalLinkIcon, GitHubIcon, StarIcon, ArrowLeftIcon } from '../components/Icons'
 import { formatStars, timeAgo } from '../utils/format'
+import { t } from '../i18n'
 
 /** 插件详情页：头部信息卡 + README 渲染 + Giscus 评论区 */
 const DetailPage: Component = () => {
@@ -21,7 +22,7 @@ const DetailPage: Component = () => {
     <div class="container page detail-page">
       <A class="back-link" href="/">
         <ArrowLeftIcon size={15} />
-        返回插件列表
+        {t('detail.back')}
       </A>
 
       <Show
@@ -29,7 +30,7 @@ const DetailPage: Component = () => {
         fallback={
           <div class="center-block">
             <span class="spinner" aria-hidden="true" />
-            <p>正在加载插件信息…</p>
+            <p>{t('detail.loading')}</p>
           </div>
         }
       >
@@ -45,12 +46,12 @@ const DetailPage: Component = () => {
                       <Show when={versionLabel(plugin().version)}>
                         {(v) => <span class="card-version detail-version">{v()}</span>}
                       </Show>
-                      <span class="detail-stars" title={`${plugin().stars} stars`}>
+                      <span class="detail-stars" title={t('card.starsTitle', { n: plugin().stars })}>
                         <StarIcon size={15} />
                         {formatStars(plugin().stars)}
                       </span>
                     </div>
-                    <p class="detail-desc">{plugin().description || '暂无描述'}</p>
+                    <p class="detail-desc">{plugin().description || t('card.noDesc')}</p>
 
                     <div class="detail-meta">
                       <a class="detail-owner" href={`${plugin().repoUrl}`} target="_blank" rel="noopener noreferrer">
@@ -58,22 +59,22 @@ const DetailPage: Component = () => {
                         <span>{plugin().owner}</span>
                       </a>
                       <span class="meta-dot">·</span>
-                      <span class="detail-repo-slug" title="插件仓库名">{plugin().repoName ?? plugin().id}</span>
+                      <span class="detail-repo-slug" title={t('detail.repoSlugTitle')}>{plugin().repoName ?? plugin().id}</span>
                       <span class="meta-dot">·</span>
-                      <span>更新于 {timeAgo(plugin().updatedAt)}</span>
+                      <span>{t('detail.updatedPrefix')} {timeAgo(plugin().updatedAt)}</span>
                       <For each={((plugin().tags?.length ? plugin().tags : plugin().topics) ?? []).slice(0, 4)}>
-                        {(t) => <span class="chip mini">{t}</span>}
+                        {(tag) => <span class="chip mini">{tag}</span>}
                       </For>
                     </div>
 
                     <div class="detail-actions">
                       <a class="btn btn-primary" href={plugin().downloadUrl} target="_blank" rel="noopener noreferrer">
                         <DownloadIcon size={16} />
-                        下载插件
+                        {t('detail.download')}
                       </a>
                       <a class="btn btn-secondary" href={plugin().repoUrl} target="_blank" rel="noopener noreferrer">
                         <GitHubIcon size={16} />
-                        项目地址
+                        {t('detail.repoLink')}
                         <ExternalLinkIcon size={13} />
                       </a>
                     </div>
@@ -81,13 +82,13 @@ const DetailPage: Component = () => {
                 </section>
 
                 <section class="detail-readme">
-                  <h2>README</h2>
+                  <h2>{t('detail.readme')}</h2>
                   <Show
                     when={!readme.loading}
                     fallback={
                       <div class="center-block">
                         <span class="spinner" aria-hidden="true" />
-                        <p>正在加载 README…</p>
+                        <p>{t('detail.loading')}</p>
                       </div>
                     }
                   >
@@ -95,8 +96,8 @@ const DetailPage: Component = () => {
                       when={!readme.error}
                       fallback={
                         <div class="empty-block">
-                          <p>暂无 README 缓存。</p>
-                          <p class="empty-sub">作者在插件市场登录 / 刷新后，会自动拉取并缓存仓库 README。</p>
+                          <p>{t('detail.readmeEmpty')}</p>
+                          <p class="empty-sub">{t('detail.readmeEmptySub')}</p>
                         </div>
                       }
                     >

@@ -1,4 +1,5 @@
 import type { ApiError, AuthConfig, AuthResult, PluginMeta } from '../types'
+import { t } from '../i18n'
 
 /**
  * API 客户端：与 Pages Functions 同源通信（/api/*）。
@@ -13,7 +14,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const data: unknown = await res.json().catch(() => null)
   if (!res.ok) {
     const payload = data as { error?: string; retryAfter?: number } | null
-    const err = new Error(payload?.error ?? `请求失败（HTTP ${res.status}）`) as ApiError
+    const err = new Error(payload?.error ?? t('api.requestFailed', { status: res.status })) as ApiError
     err.status = res.status
     if (typeof payload?.retryAfter === 'number') err.retryAfter = payload.retryAfter
     throw err
