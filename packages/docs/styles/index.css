@@ -104,11 +104,16 @@ html.dark {
   background-color: #1ba0d8;
 }
 
-/* ---------- 隐藏页脚「最后更新时间」 ----------
+/* ---------- 页脚「最后更新时间」显示策略 ----------
    valaxy rc.9 未实现 page.lastUpdated 数据填充，主题页脚组件
-   内部 new Date(lastUpdated || 0) 恒等于 1970/1/1（new Date(0)），
-   显示错误时间属于观感硬伤（Google Ads 落地页质量减分项），
-   在官方数据源可用前先隐藏。 */
+   内部 new Date(lastUpdated || 0) 恒等于 1970/1/1（new Date(0)）。
+
+   修复（与 setup/main.ts、scripts/patch-last-updated.mjs 配合）：
+   构建时已把每页真实 git 提交时间写入预渲染 HTML（datetime 属性、
+   静态文本与 data-last-ts），本规则仅作为默认隐藏 —— 客户端拿到
+   真实时间并完成本地化填充后，以行内样式 display:block 显示；
+   数据不可得（fetch 失败 / 未收录页面）时保持隐藏。
+   任何状态下都不会再显示 1970。 */
 .press-lastUpdated {
-  display: none !important;
+  display: none;
 }

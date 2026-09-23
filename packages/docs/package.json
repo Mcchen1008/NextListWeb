@@ -6,7 +6,7 @@
   "description": "NextList 文档站（Valaxy + valaxy-theme-press）",
   "scripts": {
     "dev": "valaxy dev --port 5174 --host",
-    "build": "valaxy build --ssg",
+    "build": "valaxy build --ssg && node scripts/patch-last-updated.mjs",
     "preview": "valaxy preview"
   },
   "dependencies": {
